@@ -321,10 +321,10 @@ section{position:relative}
   .traje__rail{display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; overflow:visible; margin-inline:0; padding:0}
   .traje__item{flex:none; width:100%}
 }
-#trajeModal{border:1px solid var(--line); border-radius:24px; background:var(--bg-2); color:var(--ink-2);
+#trajeModal, #multiModal{border:1px solid var(--line); border-radius:24px; background:var(--bg-2); color:var(--ink-2);
   width:min(1000px,94vw); height:min(88vh,720px); height:min(88dvh,720px); padding:0; z-index:var(--z-modal); overflow:hidden}
-#trajeModal::backdrop{background:oklch(0.42 0.09 345 / .55); backdrop-filter:blur(5px)}
-#trajeModal[open]{animation:modalIn .45s var(--e-out)}
+#trajeModal::backdrop, #multiModal::backdrop{background:oklch(0.42 0.09 345 / .55); backdrop-filter:blur(5px)}
+#trajeModal[open], #multiModal[open]{animation:modalIn .45s var(--e-out)}
 
 /* La foto tiene un alto limitado (nunca se come la pantalla) y la información queda siempre a la vista. */
 .traje__detalle{display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(170px,36vh) minmax(0,1fr);
@@ -367,7 +367,7 @@ section{position:relative}
 .traje__ver:hover{background:oklch(0.52 0.19 352)}
 .traje__ver:active{transform:scale(.96)}
 .traje__wa{align-self:flex-start; margin-top:.2rem}
-#trajeCerrar{position:absolute; top:.9rem; right:.9rem; z-index:5; width:44px; height:44px; border-radius:50%;
+#trajeCerrar, #multiCerrar{position:absolute; top:.9rem; right:.9rem; z-index:5; width:44px; height:44px; border-radius:50%;
   background:oklch(1 0 0 / .88); display:grid; place-items:center; backdrop-filter:blur(6px)}
 
 /* Pantallas medianas y grandes: foto a la izquierda, información a la derecha (con su propio desplazamiento) */
@@ -376,7 +376,7 @@ section{position:relative}
 }
 /* Celulares: la ventana ocupa toda la pantalla; foto arriba y lista debajo */
 @media (max-width:639px){
-  #trajeModal{width:100vw; height:100vh; height:100dvh; max-width:100vw; max-height:100vh; max-height:100dvh; border-radius:0; border-width:0}
+  #trajeModal, #multiModal{width:100vw; height:100vh; height:100dvh; max-width:100vw; max-height:100vh; max-height:100dvh; border-radius:0; border-width:0}
 }
 /* Celulares y ventanas medianas: la columna de información es angosta, así que el botón va debajo, a todo el ancho */
 @media (max-width:520px), (min-width:640px) and (max-width:1000px){
@@ -398,27 +398,55 @@ section{position:relative}
 #trajeFotoCerrar{position:absolute; top:1rem; right:1rem; width:44px; height:44px; border-radius:50%; display:grid; place-items:center;
   background:oklch(1 0 0 / .14); color:oklch(0.96 0.015 350)}
 
-/* ---------- ofertas / countdown ---------- */
-.offer{margin-top:clamp(3.5rem,9vw,6rem); border-radius:26px; padding:clamp(1.6rem,5vw,3.2rem);
-  background:linear-gradient(140deg, oklch(0.935 0.055 350), oklch(0.965 0.030 312));
-  border:1px solid oklch(0.635 0.185 350 / .35); position:relative; overflow:hidden}
-.offer::before{content:""; position:absolute; width:60%; aspect-ratio:1; right:-14%; top:-40%; border-radius:50%;
-  background:radial-gradient(circle, oklch(0.885 0.085 84 / .55), transparent 65%); animation:halo 9s ease-in-out infinite alternate}
-.offer h2{font-size:clamp(1.7rem,4.6vw,2.8rem); font-style:italic}
-.offer__num{position:absolute; right:clamp(1rem,4vw,4rem); top:50%; translate:0 -50%; z-index:0; pointer-events:none;
-  font-family:var(--display); font-style:italic; font-weight:700; font-size:clamp(7rem,17vw,15rem); line-height:.8;
-  color:transparent; -webkit-text-stroke:1.6px oklch(0.585 0.115 70 / .35); opacity:.9;
-  animation:floaty 10s ease-in-out infinite alternate; display:none}
-.offer__num i{font-size:.42em; font-style:italic; -webkit-text-stroke-width:1.2px}
-@media(min-width:820px){.offer__num{display:block}}
-.offer > :not(.offer__num){position:relative; z-index:1}
-.offer p{max-width:48ch; color:var(--ink-2)}
-.count{display:flex; gap:.6rem; margin-top:1.5rem; flex-wrap:wrap}
-.count div{min-width:72px; text-align:center; padding:.75rem .5rem; border-radius:14px;
-  background:oklch(1 0 0 / .70); border:1px solid var(--line); backdrop-filter:blur(6px)}
-.count b{display:block; font-family:var(--display); font-size:1.9rem; font-weight:600; color:var(--ink); font-variant-numeric:tabular-nums}
-.count span{font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-3)}
+/* ---------- productos «múltiples»: varias prendas en una misma foto ---------- */
+.multi__lista{list-style:none; margin:.15rem 0 .1rem; padding:0; display:grid; gap:.4rem}
+.multi__lista li{display:flex; justify-content:space-between; align-items:baseline; gap:.7rem; padding:.48rem .7rem; border-radius:10px;
+  background:var(--surface-2); font-size:.84rem; line-height:1.3; color:var(--ink-2)}
+.multi__lista li span{min-width:0; overflow-wrap:break-word}
+@media (max-width:640px){                       /* tarjetas angostas: el precio va debajo del nombre, sin partir las palabras */
+  .multi__lista li{flex-direction:column; align-items:flex-start; gap:.08rem}
+}
+.multi__lista b{font-weight:600; color:var(--ink); white-space:nowrap}
+.multi__lista .multi__total{margin-top:.25rem; padding:.55rem .7rem; background:var(--surface); border-top:1px solid var(--line); border-radius:10px; font-weight:600}
+.multi__lista .multi__total b{font-size:1.05rem; color:var(--rosa-deep)}
+.multi__piezas{list-style:none; margin:0; padding:0; display:grid; gap:.9rem}
+.multi__pieza{display:grid; gap:.75rem; padding:1rem; border:1px solid var(--line); border-radius:16px; background:var(--surface)}
+.multi__pieza.shake{animation:shake .42s var(--e-quart)}
+.multi__top{display:flex; justify-content:space-between; align-items:flex-start; gap:1rem}
+.multi__datos{display:flex; flex-direction:column; gap:.22rem; min-width:0}
+.multi__datos b{font-family:var(--display); font-weight:500; font-size:1.18rem; line-height:1.2; color:var(--ink)}
+.multi__desc{font-size:.88rem; line-height:1.4; color:var(--ink-3)}
+.multi__color{display:inline-flex; align-items:center; gap:.45rem; font-size:.82rem; color:var(--ink-3)}
+.multi__color i{width:14px; height:14px; border-radius:50%; background:var(--c, #ccc); border:1px solid oklch(0.45 0.06 345 / .3)}
+.multi__precio{font-size:1.12rem; font-weight:600; color:var(--ink); white-space:nowrap}
+.multi__pieza .sizes{margin-top:0}
+.multi__pieza .size{min-width:38px; padding:.4rem .65rem; font-size:.78rem}
+.multi__agregar{width:100%}
+.multi__aviso{min-height:1.15em; margin:-.2rem 0 0; font-size:.82rem; line-height:1.3; color:var(--rosa-deep)}
+.multi__agregar.ok{background:oklch(0.43 0.09 150)}
 
+/* ---------- tarjeta de regalo ---------- */
+.gift{margin-top:clamp(3.5rem,9vw,6rem); border-radius:26px; padding:clamp(1.8rem,5vw,3.4rem) clamp(1.6rem,5vw,3.2rem);
+  background:linear-gradient(135deg, var(--champan-lt) 0%, oklch(0.97 0.02 345) 100%); position:relative; overflow:hidden}
+.gift::before{content:""; position:absolute; width:60%; aspect-ratio:1; right:-14%; top:-40%; border-radius:50%;
+  background:oklch(0.88 0.055 30 / .35); pointer-events:none}
+.gift__deco{margin-bottom:1.1rem; color:var(--champan); opacity:.7}
+.gift h2{font-size:clamp(1.7rem,4.6vw,2.8rem); font-style:italic; position:relative; z-index:1}
+.gift > p{max-width:50ch; color:var(--ink-2); position:relative; z-index:1; line-height:1.6}
+.gift__valores{display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.6rem; position:relative; z-index:1}
+.gift__val{padding:.65rem 1.25rem; border-radius:999px; border:1.5px solid var(--champan); background:oklch(1 0 0 / .7);
+  font-size:.95rem; font-weight:500; color:var(--ink); transition:background var(--t-fast),color var(--t-fast)}
+.gift__val:hover{background:var(--champan); color:oklch(1 0 0)}
+.gift__val[aria-pressed="true"]{background:var(--champan); color:oklch(1 0 0)}
+.gift__val--custom{border-style:dashed}
+.gift__custom{margin-top:1rem; position:relative; z-index:1; display:flex; flex-direction:column; gap:.5rem}
+.gift__custom[hidden]{display:none}
+.gift__lbl{font-size:.95rem; color:var(--ink-2)}
+.gift__input-wrap{display:flex; align-items:center; gap:.5rem; max-width:260px}
+.gift__signo{font-size:1.2rem; font-weight:600; color:var(--ink-2)}
+.gift__input-wrap input{flex:1; padding:.7rem .9rem; border:1.5px solid var(--champan); border-radius:10px; font-size:1.1rem; background:oklch(1 0 0 / .9)}
+.gift__cta{margin-top:1.6rem; position:relative; z-index:1}
+.gift__cta:disabled{opacity:.45; cursor:not-allowed}
 /* ---------- beneficios ---------- */
 .perks{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:clamp(1rem,3vw,2rem);
   margin-top:clamp(3.5rem,9vw,6rem); padding-block:clamp(2rem,5vw,3rem); border-block:1px solid var(--line)}
@@ -479,9 +507,9 @@ footer li a:hover{color:var(--ink)}
 .drawer__empty svg{opacity:.4; margin:0 auto .9rem}
 
 /* ---------- toast + chispas ---------- */
-#toast{position:fixed; left:50%; bottom:1.6rem; translate:-50% 0; z-index:var(--z-toast);
+#toast{position:fixed; inset:auto auto 1.6rem 50%; translate:-50% 0; margin:0; border:0; overflow:visible; width:max-content; max-width:92vw; z-index:var(--z-toast);
   background:var(--ink); color:var(--bg); padding:.8rem 1.3rem; border-radius:999px; font-size:.84rem; font-weight:500;
-  opacity:0; transform:translateY(20px) scale(.94); pointer-events:none; transition:all var(--t-mid) var(--e-out); white-space:nowrap}
+  opacity:0; transform:translateY(20px) scale(.94); pointer-events:none; transition:all var(--t-mid) var(--e-out); white-space:normal; text-align:center}
 #toast.show{opacity:1; transform:none}
 .spark{position:fixed; z-index:var(--z-toast); width:7px; height:7px; border-radius:50%; pointer-events:none}
 
@@ -768,6 +796,10 @@ footer li a:hover{color:var(--ink)}
           <span class="filtros-titulo">Talla</span>
           <div class="filtros-opciones" id="filtroTallas" role="group" aria-label="Filtrar por talla"></div>
         </div>
+        <div class="filtros-grupo">
+          <span class="filtros-titulo">Precio</span>
+          <div class="filtros-opciones" id="filtroPrecio" role="group" aria-label="Filtrar por precio"></div>
+        </div>
         <button type="button" class="filtros-limpiar" id="limpiarFiltros">Limpiar filtros</button>
       </div>
       <p class="buscador__resultado" id="resultado" role="status" aria-live="polite"></p>
@@ -791,19 +823,28 @@ footer li a:hover{color:var(--ink)}
   </section>
 
   <section class="wrap" id="oferta" style="margin-top:clamp(3.5rem,9vw,6rem)">
-    <div class="offer reveal">
-      <span class="offer__num" aria-hidden="true">2<i>pzs</i></span>
-      <h2>Envío de regalo</h2>
-      <p>Llevando dos piezas, el envío va por nuestra cuenta a todo el país. Se acaba el domingo a medianoche.</p>
-      <div class="count" id="count" role="timer" aria-label="Tiempo restante de la promoción">
-        <div><b data-c="d">00</b><span>Días</span></div>
-        <div><b data-c="h">00</b><span>Horas</span></div>
-        <div><b data-c="m">00</b><span>Min</span></div>
-        <div><b data-c="s">00</b><span>Seg</span></div>
+    <div class="gift reveal">
+      <div class="gift__deco" aria-hidden="true">
+        <svg width="68" height="68" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
       </div>
-      <div class="hero__cta" style="justify-content:flex-start; margin-top:1.8rem">
-        <a class="btn btn--primary" id="waOffer" href="#" target="_blank" rel="noopener">Quiero la promo por WhatsApp</a>
+      <h2>Regala Angeles 🎁</h2>
+      <p>Dale a alguien especial la libertad de elegir lo que más le guste de la colección. Tú escoges el valor, nosotras entregamos la tarjeta y quien la recibe compra lo que quiera en la tienda.</p>
+      <div class="gift__valores" role="group" aria-label="Valor de la tarjeta de regalo">
+        <button type="button" class="gift__val" data-v="50000">$50.000</button>
+        <button type="button" class="gift__val" data-v="100000">$100.000</button>
+        <button type="button" class="gift__val" data-v="150000">$150.000</button>
+        <button type="button" class="gift__val" data-v="200000">$200.000</button>
+        <button type="button" class="gift__val" data-v="250000">$250.000</button>
+        <button type="button" class="gift__val gift__val--custom" data-v="">Otro valor</button>
       </div>
+      <div class="gift__custom" id="giftCustom" hidden>
+        <label for="giftMonto" class="gift__lbl">Escribe el valor que quieres regalar:</label>
+        <div class="gift__input-wrap">
+          <span class="gift__signo">$</span>
+          <input type="number" id="giftMonto" min="10000" step="5000" placeholder="ej: 175000" aria-label="Monto de la tarjeta de regalo">
+        </div>
+      </div>
+      <button class="btn btn--primary gift__cta" id="giftBtn" type="button" disabled>Pedir mi tarjeta de regalo por WhatsApp</button>
     </div>
 
     <div class="perks">
@@ -878,7 +919,7 @@ footer li a:hover{color:var(--ink)}
   </div>
 </aside>
 
-<div id="toast" role="status" aria-live="polite"></div>
+<div id="toast" role="status" aria-live="polite" popover="manual"></div>
 
 
 
@@ -913,6 +954,30 @@ footer li a:hover{color:var(--ink)}
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
   </button>
   <img id="trajeFotoImg" alt="">
+</dialog>
+
+<dialog id="multiModal" aria-label="Prendas del conjunto">
+  <button id="multiCerrar" type="button" aria-label="Cerrar">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <div class="traje__detalle">
+    <div class="traje__foto" id="multiFoto"></div>
+    <div class="traje__info">
+      <div class="traje__cab">
+        <span class="traje__etiqueta" id="multiCat"></span>
+        <h3 id="multiNombre"></h3>
+      </div>
+      <div class="traje__cuerpo" id="multiCuerpo">
+        <div class="traje__sub">
+          <h4>Prendas en esta foto</h4>
+          <span class="traje__cuenta" id="multiCuenta">0</span>
+        </div>
+        <p class="traje__ayuda">Cada prenda se vende por separado: elige su talla y agrégala al bolso.</p>
+        <ul class="multi__piezas" id="multiPiezas"></ul>
+        <a class="btn btn--ghost traje__wa" id="multiWa" href="#" target="_blank" rel="noopener">Preguntar por este conjunto</a>
+      </div>
+    </div>
+  </div>
 </dialog>
 
 <dialog id="lightbox" aria-label="Foto en pantalla completa">
@@ -1052,6 +1117,7 @@ async function cargarProductosDesdeSupabase() {
     }
 
     CATALOGO = [];
+    MULTIPLES = [];
 
     /* Una sola petición trae TODAS las referencias y después se agrupan acá.
        Antes se pedía una por producto: con 20 productos eran 21 viajes a
@@ -1081,6 +1147,11 @@ async function cargarProductosDesdeSupabase() {
     console.log('Referencias cargadas:', todasLasReferencias.length);
 
     for (let p of productos) {
+      if (p.tipo === 'multiple') {                              // varias prendas en una misma foto
+        const m = multipleDesdeFila(p);
+        if (m) MULTIPLES.push(m); else console.warn(`Producto múltiple "${p.nom}" incompleto (sin foto o sin prendas), se omite`);
+        continue;
+      }
       const referencias = refsPorProducto.get(p.id) || [];
 
       // Solo agregar producto si tiene al menos una referencia (color)
@@ -1113,7 +1184,7 @@ async function cargarProductosDesdeSupabase() {
     }
 
     console.log('Catálogo completado:', CATALOGO.length, 'productos');
-    $("#nRef").textContent = String(CATALOGO.length);
+    $("#nRef").textContent = String(CATALOGO.length + MULTIPLES.length);
     pintarGrid();
     looksListo.then(pintarLooks);
   } catch (err) {
@@ -1130,6 +1201,183 @@ async function cargarProductosDesdeSupabase() {
    Se piden a la vez que los productos y, si fallan o no hay ninguno,
    la sección simplemente no aparece: nunca estorban al catálogo.
    ============================================================ */
+/* ============================================================
+   PRODUCTOS «MÚLTIPLES»: varias prendas en una misma foto
+   Cada una con su nombre, precio, tallas y color opcional. Viven en la
+   misma tabla productos (tipo = 'multiple', columna piezas) y se muestran
+   como una tarjeta con la lista de prendas y sus precios individuales.
+   ============================================================ */
+let MULTIPLES = [];
+let multiModal = null;
+
+function multipleDesdeFila(p){
+  const piezas = (Array.isArray(p.piezas) ? p.piezas : []).map((z, i) => ({
+    id: String(z.id ?? ("z" + i)),
+    nombre: String(z.nombre ?? "").trim(),
+    desc: String(z.desc ?? z.descripcion ?? "").trim(),
+    precio: Number(z.precio),
+    tallas: Array.isArray(z.tallas) && z.tallas.length ? z.tallas.map(String) : ["Única"],
+    color: z.color || "",
+    hex: z.hex || ""
+  })).filter(z => z.nombre && z.precio > 0);
+  if (!p.imagen_url || !piezas.length) return null;
+  piezas.forEach(z => { z.c = { n: z.color, h: z.hex }; });      // «color» con el mismo formato que usan los filtros
+  return { id: p.id, cat: p.cat, nom: p.nom, corta: p.desc_corta || "", desc: p.desc || "", img: p.imagen_url, piezas, esMultiple: true };
+}
+
+/* Las prendas sueltas y los conjuntos se muestran juntos: cada conjunto va al final de su categoría */
+function mezclarCatalogo(indiv, mult){
+  const out = [], usados = new Set();
+  [...new Set(indiv.map(p => p.cat))].forEach(c => {
+    indiv.filter(p => p.cat === c).forEach(p => out.push({ p }));
+    mult.filter(m => m.cat === c).forEach(m => { out.push({ m }); usados.add(m); });
+  });
+  mult.filter(m => !usados.has(m)).forEach(m => out.push({ m }));
+  return out;
+}
+
+function textoMultiple(m){
+  if (!m._t) m._t = sinTildes([m.nom, m.cat, m.corta,
+    ...m.piezas.map(z => z.nombre + " " + z.desc + " " + z.color + " " + famDe(z.c).map(nomFamilia).join(" "))].join(" "));
+  return m._t;
+}
+function piezaCoincide(z){
+  if (filtroColor.size && !famDe(z.c).some(f => filtroColor.has(f))) return false;
+  if (filtroTalla.size && !z.tallas.some(t => filtroTalla.has(t))) return false;
+  return true;
+}
+function coincideMultiple(m){
+  if (filtroActual !== "Todo" && m.cat !== filtroActual) return false;
+  if (palabras.length){ const t = textoMultiple(m); if (!palabras.every(w => t.includes(w))) return false; }
+  if (!enFranja(precioMinimoM(m))) return false;
+  if (filtroColor.size || filtroTalla.size) return m.piezas.some(piezaCoincide);
+  return true;
+}
+
+function tarjetaMultiple(m, idx){
+  const el = document.createElement("article");
+  el.className = "card card--multi reveal";
+  el.style.setProperty("--i", String(idx % 8));
+  el.dataset.id = m.id;
+  el.innerHTML = `
+    <div class="card__media"></div>
+    <div class="card__body">
+      <span class="card__cat"></span>
+      <h3 class="card__name"></h3>
+      <p class="card__desc"></p>
+      <ul class="multi__lista" aria-label="Prendas de este conjunto y su precio"></ul>
+      <button class="card__add" type="button"><span>Ver prendas y agregar</span></button>
+    </div>`;
+  $(".card__cat", el).textContent = m.cat;
+  $(".card__name", el).textContent = m.nom;
+  const d = $(".card__desc", el); if (m.corta) d.textContent = m.corta; else d.remove();
+
+  const media = $(".card__media", el);
+  const img = document.createElement("img");
+  img.className = "foto"; img.src = m.img; img.decoding = "async"; img.loading = "lazy";
+  img.alt = `${m.nom}: ${m.piezas.map(z => z.nombre).join(", ")}`;
+  media.appendChild(img);
+  media.setAttribute("role", "button"); media.setAttribute("tabindex", "0");
+  media.setAttribute("aria-label", `Ver la foto de ${m.nom} completa`);
+  const ampliar = () => abrirFotoGrande({ imagen_url: m.img, titulo: m.nom });
+  media.addEventListener("click", ampliar);
+  media.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); ampliar(); } });
+
+  const tag = document.createElement("span"); tag.className = "card__tag gold";
+  tag.textContent = `${m.piezas.length} prendas`; el.appendChild(tag);
+
+  const ul = $(".multi__lista", el);
+  let totalConj = 0;
+  m.piezas.forEach(z => {
+    totalConj += z.precio;
+    const li = document.createElement("li");
+    const n = document.createElement("span"); n.textContent = z.nombre;
+    const b = document.createElement("b"); b.textContent = cop(z.precio);
+    li.append(n, b); ul.appendChild(li);
+  });
+  const liT = document.createElement("li"); liT.className = "multi__total";
+  const nT = document.createElement("span"); nT.textContent = "Total conjunto";
+  const bT = document.createElement("b"); bT.textContent = cop(totalConj);
+  liT.append(nT, bT); ul.appendChild(liT);
+  $(".card__add", el).addEventListener("click", () => abrirMultiple(m));
+  return el;
+}
+
+function filaMultiple(m, z){
+  const li = document.createElement("li"); li.className = "multi__pieza";
+  const top = document.createElement("div"); top.className = "multi__top";
+  const datos = document.createElement("div"); datos.className = "multi__datos";
+  const nom = document.createElement("b"); nom.textContent = z.nombre; datos.appendChild(nom);
+  if (z.desc){ const d = document.createElement("span"); d.className = "multi__desc"; d.textContent = z.desc; datos.appendChild(d); }
+  if (z.color){
+    const c = document.createElement("span"); c.className = "multi__color";
+    const i = document.createElement("i"); if (z.hex) i.style.setProperty("--c", z.hex);
+    c.append(i, z.color); datos.appendChild(c);
+  }
+  const pr = document.createElement("div"); pr.className = "multi__precio"; pr.textContent = cop(z.precio);
+  top.append(datos, pr);
+
+  const sizes = document.createElement("div"); sizes.className = "sizes";
+  sizes.setAttribute("role", "group"); sizes.setAttribute("aria-label", `Tallas de ${z.nombre}`);
+  let talla = z.tallas.length === 1 ? z.tallas[0] : null;       // con una sola talla ya viene elegida
+  const pintarTallas = () => {
+    sizes.replaceChildren();
+    z.tallas.forEach(t => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "size"; b.textContent = t;
+      b.setAttribute("aria-pressed", String(t === talla));
+      b.addEventListener("click", () => { talla = t; pintarTallas(); aviso.textContent = ""; });
+      sizes.appendChild(b);
+    });
+  };
+  pintarTallas();
+
+  const aviso = document.createElement("p"); aviso.className = "multi__aviso"; aviso.setAttribute("role", "status");
+  const add = document.createElement("button"); add.type = "button"; add.className = "traje__ver multi__agregar";
+  add.textContent = "Agregar al bolso"; add.setAttribute("aria-label", `Agregar ${z.nombre} al bolso`);
+  let tAviso;
+  add.addEventListener("click", e => {
+    clearTimeout(tAviso);
+    if (!talla){
+      li.classList.remove("shake"); void li.offsetWidth; li.classList.add("shake");
+      aviso.textContent = "Elige una talla para agregarla";
+      toast("Elige una talla primero ✨"); return;
+    }
+    agregarMultiple(m, z, talla); chispas(e.clientX, e.clientY);
+    aviso.textContent = ""; add.classList.add("ok"); add.textContent = "¡Agregada! ✓";
+    tAviso = setTimeout(() => { add.classList.remove("ok"); add.textContent = "Agregar al bolso"; }, 1600);
+  });
+  li.append(top, sizes, aviso, add);
+  return li;
+}
+
+function abrirMultiple(m){
+  $("#multiCat").textContent = m.cat;
+  $("#multiNombre").textContent = m.nom;
+  const foto = $("#multiFoto"); foto.replaceChildren();
+  const btn = document.createElement("button"); btn.type = "button"; btn.className = "traje__foto-btn";
+  btn.setAttribute("aria-label", "Ver la foto completa");
+  const img = document.createElement("img"); img.src = m.img; img.alt = `${m.nom}: ${m.piezas.map(z => z.nombre).join(", ")}`; img.decoding = "async";
+  btn.appendChild(img); foto.appendChild(btn);
+  btn.addEventListener("click", () => abrirFotoGrande({ imagen_url: m.img, titulo: m.nom }));
+  $("#multiCuenta").textContent = String(m.piezas.length);
+  const ul = $("#multiPiezas"); ul.replaceChildren();
+  m.piezas.forEach(z => ul.appendChild(filaMultiple(m, z)));
+  $("#multiWa").href = wa(`¡Hola ${CFG.negocio}! Me interesa el conjunto «${m.nom}» y quiero más información 💕`);
+  $("#multiCuerpo").scrollTop = 0;
+  multiModal.showModal();
+}
+
+/* Cada prenda del conjunto entra al bolso por separado, con su talla y su precio */
+function agregarMultiple(m, z, t){
+  const k = `m:${m.id}|${z.id}|${t}`;
+  const ex = carrito.find(i => i.k === k);
+  if (ex) ex.q++;
+  else carrito.push({ k, id: m.id, nom: z.nombre, conj: m.nom, color: z.color || "", hex: z.hex || "", precio: z.precio, talla: t, q: 1, img: m.img });
+  save("cart", carrito); pintarCarrito();
+  const b = $("#cartCount"); b.classList.remove("bump"); void b.offsetWidth; b.classList.add("bump");
+  toast(`${z.nombre} · talla ${t}`);
+}
+
 let LOOKS = [];
 const looksListo = (async () => {
   try {
@@ -1224,6 +1472,9 @@ function conectarTraje(){
   $("#trajeCerrar").addEventListener("click", () => trajeModal.close());
   trajeModal.addEventListener("click", e => { if (e.target === trajeModal) trajeModal.close(); });   // clic fuera
   $("#trajeFotoGrande").addEventListener("click", () => $("#trajeFotoGrande").close());               // cualquier clic cierra la foto grande
+  multiModal = $("#multiModal");
+  $("#multiCerrar").addEventListener("click", () => multiModal.close());
+  multiModal.addEventListener("click", e => { if (e.target === multiModal) multiModal.close(); });    // clic fuera
 }
 
 function pintarLooks(looks){
@@ -1374,6 +1625,9 @@ const sel     = {};                   // { id: {color:idx, talla:"M"} } — elec
 
 const vk      = (p, c) => p.id + "::" + c.n;
 const precio  = (p, c) => overrides[vk(p,c)]?.precio ?? c.p;
+function precioMinimoP(p){ return Math.min(...p.colores.map(c => precio(p, c))); }
+function precioMinimoM(m){ return Math.min(...m.piezas.map(z => z.precio)); }
+function enFranja(v){ if(!filtroPrecioRango)return true; const{id,min,max}=filtroPrecioRango; return id==="0-100"?v<=100000:v>min&&v<=max; }
 const hay     = (p, c) => (overrides[vk(p,c)]?.stock ?? 1) !== 0;
 const agotado = p => p.colores.every(c => !hay(p, c));
 const elegido = p => {
@@ -1395,7 +1649,7 @@ let catsPintadas = null;
    todavía está vacío y solo salía "Todo"): se arman desde pintarGrid(), y se
    rehacen solos si cambian las categorías en el panel admin. */
 function pintarFiltros(){
-  const cats = ["Todo", ...new Set(CATALOGO.map(p => p.cat).filter(Boolean))];
+  const cats = ["Todo", ...new Set([...CATALOGO, ...MULTIPLES].map(p => p.cat).filter(Boolean))];
   const firma = cats.join("|");
   if (firma === catsPintadas) return;        // sin cambios: no se repinta
   catsPintadas = firma;
@@ -1469,6 +1723,13 @@ function famDe(c){
 
 let textoBusqueda = "";
 let palabras = [];
+let filtroPrecioRango = null;
+const FRANJAS = [
+  { id:"0-100",   lbl:"Hasta $100.000",       min:0,      max:100000  },
+  { id:"100-200", lbl:"$100.000 – $200.000",  min:100000, max:200000  },
+  { id:"200-300", lbl:"$200.000 – $300.000",  min:200000, max:300000  },
+  { id:"300+",    lbl:"Más de $300.000",       min:300000, max:Infinity}
+];
 const filtroColor = new Set();      // familias elegidas (basta con una: "o")
 const filtroTalla = new Set();      // tallas elegidas (basta con una: "o")
 let opcionesPintadas = null;
@@ -1482,6 +1743,7 @@ const rangoTalla = t => {
 function tallasDisponibles(){
   const s = new Set();
   CATALOGO.forEach(p => p.colores.forEach(c => tallasDe(p, c).forEach(t => s.add(t))));
+  MULTIPLES.forEach(m => m.piezas.forEach(z => z.tallas.forEach(t => s.add(t))));
   return [...s].sort((a, b) => { const x = rangoTalla(a), y = rangoTalla(b); return x[0] - y[0] || x[1] - y[1]; });
 }
 
@@ -1498,6 +1760,7 @@ function textoDe(p){
 function coincide(p){
   if (filtroActual !== "Todo" && p.cat !== filtroActual) return false;
   if (palabras.length){ const t = textoDe(p); if (!palabras.every(w => t.includes(w))) return false; }
+  if (!enFranja(precioMinimoP(p))) return false;
   if (filtroColor.size || filtroTalla.size) return p.colores.some(c => varianteCoincide(p, c));
   return true;
 }
@@ -1518,7 +1781,7 @@ function ajustarVarianteElegida(p){
 }
 
 function pintarOpcionesFiltro(){
-  const fams = FAMILIAS.filter(f => CATALOGO.some(p => p.colores.some(c => famDe(c).includes(f.id))));
+  const fams = FAMILIAS.filter(f => CATALOGO.some(p => p.colores.some(c => famDe(c).includes(f.id))) || MULTIPLES.some(m => m.piezas.some(z => famDe(z.c).includes(f.id))));
   const tallas = tallasDisponibles();
   [...filtroColor].forEach(id => { if (!fams.some(f => f.id === id)) filtroColor.delete(id); });
   [...filtroTalla].forEach(t => { if (!tallas.includes(t)) filtroTalla.delete(t); });
@@ -1546,15 +1809,24 @@ function pintarOpcionesFiltro(){
   $$("#filtroColores .fcolor").forEach(b => b.setAttribute("aria-pressed", String(filtroColor.has(b.dataset.id))));
   $$("#filtroTallas .ftalla").forEach(b => b.setAttribute("aria-pressed", String(filtroTalla.has(b.dataset.t))));
 
-  const n = filtroColor.size + filtroTalla.size, badge = $("#nFiltros"), btn = $("#btnFiltros");
+  /* franjas de precio: se construyen solo la primera vez */
+  const fp = $("#filtroPrecio");
+  if (!fp.children.length) FRANJAS.forEach(f => {
+    const b = document.createElement("button"); b.type="button"; b.className="ftalla fprecio"; b.dataset.fid=f.id; b.textContent=f.lbl;
+    b.addEventListener("click", () => { filtroPrecioRango = filtroPrecioRango?.id===f.id ? null : f; pintarGrid(false); });
+    fp.appendChild(b);
+  });
+  $$("#filtroPrecio .fprecio").forEach(b => b.setAttribute("aria-pressed", String(filtroPrecioRango?.id===b.dataset.fid)));
+
+  const n = filtroColor.size + filtroTalla.size + (filtroPrecioRango ? 1 : 0), badge = $("#nFiltros"), btn = $("#btnFiltros");
   badge.hidden = !n; badge.textContent = String(n);
   btn.setAttribute("aria-label", n ? `Filtros (${n} activos)` : "Filtros");
   btn.hidden = !(fams.length || tallas.length);
 }
 
-function limpiarFiltros(){ filtroColor.clear(); filtroTalla.clear(); pintarGrid(false); }
+function limpiarFiltros(){ filtroColor.clear(); filtroTalla.clear(); filtroPrecioRango=null; pintarGrid(false); }
 function limpiarTodo(){
-  filtroColor.clear(); filtroTalla.clear();
+  filtroColor.clear(); filtroTalla.clear(); filtroPrecioRango=null;
   textoBusqueda = ""; $("#busqueda").value = ""; $("#busquedaBorrar").hidden = true;
   filtroActual = "Todo"; catsPintadas = null;                 // fuerza a redibujar las categorías con «Todo» activa
   pintarGrid(false);
@@ -1563,7 +1835,7 @@ function actualizarResultado(n){
   const el = $("#resultado"); el.replaceChildren();
   const activo = textoBusqueda.trim() || filtroColor.size || filtroTalla.size;
   if (!activo || n === 0) return;                             // sin resultados ya lo explica la cuadrícula
-  el.append(`${n} ${n === 1 ? "prenda" : "prendas"} de ${CATALOGO.length}`);
+  el.append(`${n} ${n === 1 ? "prenda" : "prendas"} de ${CATALOGO.length + MULTIPLES.length}`);
   const b = document.createElement("button"); b.type = "button"; b.textContent = "Quitar búsqueda y filtros";
   b.addEventListener("click", limpiarTodo); el.appendChild(b);
 }
@@ -1729,23 +2001,25 @@ function pintarGrid(animar = true){
   pintarFiltros();
   palabras = sinTildes(textoBusqueda).split(/\s+/).filter(Boolean);
   pintarOpcionesFiltro();
-  const lista = CATALOGO.filter(coincide);
+  const items = mezclarCatalogo(CATALOGO.filter(coincide), MULTIPLES.filter(coincideMultiple));
+  const total = CATALOGO.length + MULTIPLES.length;
   grid.replaceChildren();
-  actualizarResultado(lista.length);
-  if (!lista.length){
+  actualizarResultado(items.length);
+  if (!items.length){
     const e = document.createElement("p"); e.className = "empty";
     const hayAlgo = textoBusqueda.trim() || filtroColor.size || filtroTalla.size || filtroActual !== "Todo";
-    e.textContent = hayAlgo && CATALOGO.length ? "No encontramos prendas con esa búsqueda o esos filtros."
-                                                : "Todavía no hay piezas en esta categoría.";
-    if (hayAlgo && CATALOGO.length){
+    e.textContent = hayAlgo && total ? "No encontramos prendas con esa búsqueda o esos filtros."
+                                     : "Todavía no hay piezas en esta categoría.";
+    if (hayAlgo && total){
       const b = document.createElement("button"); b.type = "button"; b.textContent = "Quitar búsqueda y filtros";
       b.addEventListener("click", limpiarTodo); e.appendChild(b);
     }
     grid.appendChild(e); return;
   }
-  lista.forEach((p, i) => {
-    ajustarVarianteElegida(p);
-    const t = tarjeta(p, i);
+  items.forEach((it, i) => {
+    let t;
+    if (it.m) t = tarjetaMultiple(it.m, i);
+    else { ajustarVarianteElegida(it.p); t = tarjeta(it.p, i); }
     if (!animar) t.classList.add("in");                      // al buscar no se repite la animación de entrada
     grid.appendChild(t);
   });
@@ -1922,14 +2196,15 @@ function pintarCarrito(){
   let total = 0;
   carrito.forEach(it => {
     total += it.precio * it.q;
-    const base = CATALOGO.find(p => p.id === it.id);
+    const base = it.conj ? null : CATALOGO.find(p => p.id === it.id);
     const row = document.createElement("div"); row.className = "ci";
     const fig = document.createElement("figure");
     const cObj = base && (base.colores.find(x => x.n === it.color) || { n: it.color, h: it.hex });
     if (base) fig.innerHTML = visual(base, cObj, "C" + it.talla + it.color.replace(/\W/g,""));
+    else if (it.conj && it.img){ const im = document.createElement("img"); im.className = "foto"; im.src = it.img; im.alt = ""; im.decoding = "async"; fig.appendChild(im); }
     const info = document.createElement("div");
     const b = document.createElement("b"); b.textContent = it.nom;
-    const s = document.createElement("small"); s.textContent = `${it.color} · talla ${it.talla}`;
+    const s = document.createElement("small"); s.textContent = it.conj ? `${it.conj} · talla ${it.talla}` : `${it.color} · talla ${it.talla}`;
     const q = document.createElement("div"); q.className = "qty";
     const menos = document.createElement("button"); menos.type = "button"; menos.textContent = "−"; menos.setAttribute("aria-label", "Quitar uno");
     const num = document.createElement("span"); num.textContent = String(it.q);
@@ -1966,7 +2241,7 @@ addEventListener("keydown", e => { if (e.key === "Escape") abrirCarrito(false); 
 function msgCarrito(){
   if (!carrito.length) return `¡Hola ${CFG.negocio}! Quiero información de la colección 💕`;
   let t = 0, l = [`¡Hola ${CFG.negocio}! Quiero pedir:`, ""];
-  carrito.forEach(i => { t += i.precio * i.q; l.push(`• ${i.q}x ${i.nom} — ${i.color} — talla ${i.talla === "Única" ? "única" : i.talla} — ${cop(i.precio * i.q)}`); });
+  carrito.forEach(i => { t += i.precio * i.q; l.push(`• ${i.q}x ${i.conj ? i.nom + " (" + i.conj + ")" : i.nom + " — " + i.color} — talla ${i.talla === "Única" ? "única" : i.talla} — ${cop(i.precio * i.q)}`); });
   l.push("", `Total: ${cop(t)}`);
   if (t >= CFG.envioGratisDesde) l.push("(Con envío gratis 🚚)");
   return l.join("\n");
@@ -1976,16 +2251,27 @@ function linksWA(){
   $("#cartWa").href  = wa(msgCarrito());
   $("#waFloat").href = wa(`¡Hola ${CFG.negocio}! Vi el catálogo y quiero preguntar por una pieza 💕`);
   $("#waFoot").href  = $("#waFloat").href;
-  $("#waOffer").href = wa(`¡Hola ${CFG.negocio}! Quiero aprovechar la promo de la semana 🌸`);
+  
 }
 
 /* ============================================================
    7. MICRO-INTERACCIONES
    ============================================================ */
-let toastT;
+let toastT, toastH;
 function toast(txt){
-  const el = $("#toast"); el.textContent = txt; el.classList.add("show");
-  clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove("show"), 2200);
+  const el = $("#toast"); el.textContent = txt;
+  clearTimeout(toastT); clearTimeout(toastH);
+  /* Las ventanas abiertas con showModal() viven en la capa superior del navegador y tapan cualquier aviso normal.
+     Con popover el aviso sube a esa capa cada vez que aparece y se ve por encima de ellas. */
+  if (el.showPopover){
+    try { if (el.matches(":popover-open")) el.hidePopover(); el.showPopover(); } catch {}
+  }
+  void el.offsetWidth;                                       // reinicia la animación de entrada
+  el.classList.add("show");
+  toastT = setTimeout(() => {
+    el.classList.remove("show");
+    toastH = setTimeout(() => { try { if (el.matches(":popover-open")) el.hidePopover(); } catch {} }, 400);
+  }, 2200);
 }
 function chispas(x, y){
   if (reduce || x == null) return;
@@ -2153,6 +2439,30 @@ function panel(){
 /* ============================================================
    9. ARRANQUE
    ============================================================ */
+/* ── Tarjeta de regalo ───────────────────────────────────────────────── */
+(function(){
+  let valorElegido = 0;
+  const btns = $$(".gift__val"), custom = $("#giftCustom"), monto = $("#giftMonto"), cta = $("#giftBtn");
+  const actualizar = () => {
+    cta.disabled = !(valorElegido > 0);
+    cta.textContent = valorElegido > 0
+      ? `Pedir tarjeta de ${cop(valorElegido)} por WhatsApp 🎁`
+      : "Pedir mi tarjeta de regalo por WhatsApp";
+    btns.forEach(b => b.setAttribute("aria-pressed", String(Number(b.dataset.v) === valorElegido && valorElegido > 0)));
+  };
+  btns.forEach(b => b.addEventListener("click", () => {
+    if (b.classList.contains("gift__val--custom")){ custom.hidden=false; monto.focus(); valorElegido=parseInt(monto.value)||0; }
+    else { custom.hidden=true; valorElegido=Number(b.dataset.v); }
+    actualizar();
+  }));
+  monto.addEventListener("input", () => { valorElegido=parseInt(monto.value)||0; actualizar(); });
+  cta.addEventListener("click", () => {
+    if (!valorElegido) return;
+    const msg=`¡Hola ${CFG.negocio}! Quiero comprar una tarjeta de regalo por ${cop(valorElegido)} 🎁\nEstaría para regalar y quiero saber cómo recibirla y enviarla.`;
+    window.open(wa(msg),"_blank","noopener");
+  });
+})();
+
 $("#year").textContent = String(new Date().getFullYear());
 conectarTraje();
 cargarProductosDesdeSupabase();
