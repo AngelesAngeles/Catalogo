@@ -422,6 +422,7 @@ section{position:relative}
 .multi__pieza .sizes{margin-top:0}
 .multi__pieza .size{min-width:38px; padding:.4rem .65rem; font-size:.78rem}
 .multi__agregar{width:100%}
+.multi__swatches-modal{display:flex; flex-wrap:wrap; gap:.4rem; margin:.2rem 0 .6rem}
 .multi__aviso{min-height:1.15em; margin:-.2rem 0 0; font-size:.82rem; line-height:1.3; color:var(--rosa-deep)}
 .multi__agregar.ok{background:oklch(0.43 0.09 150)}
 
@@ -447,6 +448,69 @@ section{position:relative}
 .gift__input-wrap input{flex:1; padding:.7rem .9rem; border:1.5px solid var(--champan); border-radius:10px; font-size:1.1rem; background:oklch(1 0 0 / .9)}
 .gift__cta{margin-top:1.6rem; position:relative; z-index:1}
 .gift__cta:disabled{opacity:.45; cursor:not-allowed}
+/* ---------- instagram: reels dentro del catálogo ---------- */
+.ig{margin-top:clamp(3.5rem,9vw,6rem)}
+.ig[hidden]{display:none}
+.ig__head{text-align:center; margin-bottom:clamp(1.4rem,4vw,2.2rem)}
+.ig__eyebrow{margin:0 0 .5rem; font-size:.74rem; letter-spacing:.22em; text-transform:uppercase; color:var(--champan)}
+.ig__head h2{font-size:clamp(1.7rem,5.4vw,3rem); font-style:italic; line-height:1.1}
+.ig__user{display:inline-flex; align-items:center; gap:.6rem; color:var(--ink); border-bottom:1px solid transparent;
+  transition:border-color var(--t-mid), color var(--t-mid)}
+.ig__user:hover{color:var(--rosa-deep); border-bottom-color:currentColor}
+.ig__user svg{flex:none}
+.ig__rail{display:flex; align-items:flex-start; gap:1rem; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth;
+  padding:.3rem var(--pad) 1rem; margin-inline:calc(var(--pad) * -1); scroll-padding-inline:var(--pad); scrollbar-width:none}
+.ig__rail::-webkit-scrollbar{display:none}
+.ig__card{flex:0 0 clamp(250px,78vw,330px); scroll-snap-align:center; display:flex; flex-direction:column; overflow:hidden;
+  border:1px solid var(--line); border-radius:22px; background:var(--surface)}
+@media (min-width:760px){ .ig__card{flex-basis:clamp(280px,29vw,340px); scroll-snap-align:start} }
+.ig__marco{position:relative; width:100%; aspect-ratio:9/19; background:var(--surface-2)}
+.ig__marco iframe{position:absolute; inset:0; width:100%; height:100%; border:0; background:transparent}
+.ig__espera{position:absolute; inset:0; display:grid; place-items:center; color:var(--champan); opacity:.55}
+.ig__marco[data-listo] .ig__espera{animation:igPulso 1.6s ease-in-out infinite}
+@keyframes igPulso{50%{opacity:.2}}
+.ig__ver{display:block; padding:.85rem 1rem; text-align:center; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-2); border-top:1px solid var(--line); transition:background var(--t-fast), color var(--t-fast)}
+.ig__ver:hover{background:var(--surface-2); color:var(--rosa-deep)}
+.ig__nav{display:flex; justify-content:center; gap:.8rem; margin-top:.4rem}
+.ig__flecha{width:46px; height:46px; border-radius:50%; display:grid; place-items:center; color:var(--ink);
+  background:oklch(1 0 0 / .7); border:1px solid var(--line); transition:background var(--t-fast), opacity var(--t-fast)}
+.ig__flecha:hover:not([disabled]){background:var(--surface-2)}
+.ig__flecha[disabled]{opacity:.35; cursor:default}
+
+/* ---------- comentarios ---------- */
+.opin{margin-top:clamp(3.5rem,9vw,6rem)}
+.opin[hidden]{display:none}
+.opin__head{text-align:center; margin-bottom:clamp(1.4rem,4vw,2.2rem)}
+.opin__head h2{font-size:clamp(1.7rem,5vw,2.8rem); font-style:italic}
+.opin__head p{margin:.4rem 0 0; color:var(--ink-3)}
+.opin__lista{list-style:none; margin:0; padding:0; columns:1; column-gap:1rem}
+@media (min-width:600px){ .opin__lista{columns:2} }
+@media (min-width:1000px){ .opin__lista{columns:3} }
+.opin__item{break-inside:avoid; margin:0 0 1rem; padding:1rem 1.15rem; border:1px solid var(--line); border-radius:20px 20px 20px 6px;
+  background:var(--surface)}
+.opin__txt{margin:0; font-size:1rem; line-height:1.5; color:var(--ink); white-space:pre-line; overflow-wrap:anywhere}
+.opin__form{max-width:560px; margin:clamp(1.4rem,4vw,2.2rem) auto 0; padding:clamp(1.2rem,4vw,1.8rem); border:1px solid var(--line);
+  border-radius:22px; background:var(--surface); display:grid; gap:1rem}
+.opin__lista[hidden]{display:none}
+.opin__lista:not([hidden]) + .opin__form{margin-top:clamp(.4rem,2vw,1rem)}
+.opin__form h3{margin:0; font-size:1.4rem; font-style:italic}
+.opin__campo{position:relative; display:grid; gap:.4rem}
+.opin__campo label{font-size:.9rem; color:var(--ink-2)}
+.opin__campo label span{color:var(--ink-3)}
+.opin__campo textarea, .opin__campo input{width:100%; padding:.8rem .95rem; border:1.5px solid var(--line); border-radius:14px;
+  background:oklch(1 0 0 / .85); font:inherit; font-size:1rem; line-height:1.45; color:var(--ink); resize:vertical}
+.opin__campo textarea::placeholder, .opin__campo input::placeholder{color:var(--ink-3); opacity:1}
+.opin__campo textarea:focus, .opin__campo input:focus{outline:2px solid var(--rosa-deep); outline-offset:1px; border-color:var(--rosa-deep)}
+.opin__cuenta{justify-self:end; font-size:.78rem; color:var(--ink-3)}
+.opin__trampa{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden}
+.opin__form .btn{justify-self:start}
+.opin__msg{margin:0; min-height:1.4em; font-size:.95rem; line-height:1.4; color:var(--ink-2)}
+.opin__msg.ok{color:oklch(0.4 0.1 150)}
+.opin__msg.error{color:var(--rosa-deep)}
+@media (max-width:520px){ .opin__form .btn{justify-self:stretch} }
+.opin__autor{display:block; margin-top:.55rem; font-size:.82rem; color:var(--ink-2)}
+
 /* ---------- beneficios ---------- */
 .perks{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:clamp(1rem,3vw,2rem);
   margin-top:clamp(3.5rem,9vw,6rem); padding-block:clamp(2rem,5vw,3rem); border-block:1px solid var(--line)}
@@ -847,6 +911,51 @@ footer li a:hover{color:var(--ink)}
       <button class="btn btn--primary gift__cta" id="giftBtn" type="button" disabled>Pedir mi tarjeta de regalo por WhatsApp</button>
     </div>
 
+    <div class="ig reveal" id="instagram">
+      <div class="ig__head">
+        <p class="ig__eyebrow">Mira cómo se ven puestas</p>
+        <h2>
+          <a class="ig__user" href="https://www.instagram.com/losangeles6397/" target="_blank" rel="noopener noreferrer" aria-label="Abrir el perfil de Instagram @losangeles6397">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+            <span>@losangeles6397</span>
+          </a>
+        </h2>
+      </div>
+      <div class="ig__rail" id="igRail" tabindex="-1"></div>
+      <div class="ig__nav" role="group" aria-label="Navegar entre los videos">
+        <button type="button" class="ig__flecha" id="igPrev" aria-label="Videos anteriores">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button type="button" class="ig__flecha" id="igNext" aria-label="Más videos">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="opin reveal" id="comentarios" hidden>
+      <div class="opin__head">
+        <h2 id="opinTitulo">Lo que dicen de nosotras</h2>
+        <p id="opinSub">Mensajes que nos escriben</p>
+      </div>
+      <ul class="opin__lista" id="opinLista"></ul>
+
+      <form class="opin__form" id="opinForm" novalidate>
+        <h3>Deja tu comentario</h3>
+        <div class="opin__campo">
+          <label for="opinTexto">Tu comentario</label>
+          <textarea id="opinTexto" rows="4" maxlength="240" placeholder="Escribe aquí lo que quieras contarnos" required></textarea>
+          <span class="opin__cuenta" id="opinCuenta" aria-hidden="true">0 / 240</span>
+        </div>
+        <div class="opin__campo">
+          <label for="opinNombre">Tu nombre <span>(opcional)</span></label>
+          <input type="text" id="opinNombre" maxlength="40" placeholder="Cómo te llamas" autocomplete="given-name">
+        </div>
+        <div class="opin__trampa" aria-hidden="true"><label>No llenar este campo <input type="text" id="opinSitio" tabindex="-1" autocomplete="off"></label></div>
+        <button class="btn btn--primary" type="submit" id="opinEnviar">Enviar comentario</button>
+        <p class="opin__msg" id="opinMsg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+
     <div class="perks">
       <div class="perk reveal">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 8h11v9H3zM14 11h4l3 3v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17.5" cy="18" r="2"/></svg>
@@ -886,7 +995,7 @@ footer li a:hover{color:var(--ink)}
         <h4>Escríbenos</h4>
         <ul>
           <li><a id="waFoot" href="#" target="_blank" rel="noopener">WhatsApp</a></li>
-          <li><a href="#" onclick="return false">Instagram</a></li>
+          <li><a href="https://www.instagram.com/losangeles6397/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
           <li>Santa Rosa de Cabal, Risaralda</li>
         </ul>
       </div>
@@ -1148,7 +1257,8 @@ async function cargarProductosDesdeSupabase() {
 
     for (let p of productos) {
       if (p.tipo === 'multiple') {                              // varias prendas en una misma foto
-        const m = multipleDesdeFila(p);
+        const refs = refsPorProducto.get(p.id) || [];
+        const m = multipleDesdeFila(p, refs);
         if (m) MULTIPLES.push(m); else console.warn(`Producto múltiple "${p.nom}" incompleto (sin foto o sin prendas), se omite`);
         continue;
       }
@@ -1210,19 +1320,79 @@ async function cargarProductosDesdeSupabase() {
 let MULTIPLES = [];
 let multiModal = null;
 
-function multipleDesdeFila(p){
-  const piezas = (Array.isArray(p.piezas) ? p.piezas : []).map((z, i) => ({
+function piezasDeColor(piezasBase, ref){
+  /* Toma las piezas base del conjunto y aplica los precios de esta referencia de color.
+     Si la referencia tiene piezas_precios guardadas, sobreescribe el precio de cada pieza.
+     Si no las tiene, usa los precios base. */
+  const overrides = new Map((Array.isArray(ref.piezas_precios) ? ref.piezas_precios : []).map(z => [String(z.nombre).trim().toLowerCase(), Number(z.precio)]));
+  return piezasBase.map(z => ({
+    ...z,
+    precio: overrides.has(z.nombre.toLowerCase()) ? overrides.get(z.nombre.toLowerCase()) : z.precio,
+    tallas: Array.isArray(ref.tallas) && ref.tallas.length ? ref.tallas.map(String) : z.tallas,
+    color: ref.color || z.color,
+    hex: ref.hex || z.hex,
+    c: { n: ref.color || z.color, h: ref.hex || z.hex }
+  }));
+}
+
+function multipleDesdeFila(p, refs){
+  const piezasBase = (Array.isArray(p.piezas) ? p.piezas : []).map((z, i) => ({
     id: String(z.id ?? ("z" + i)),
     nombre: String(z.nombre ?? "").trim(),
     desc: String(z.desc ?? z.descripcion ?? "").trim(),
     precio: Number(z.precio),
     tallas: Array.isArray(z.tallas) && z.tallas.length ? z.tallas.map(String) : ["Única"],
     color: z.color || "",
-    hex: z.hex || ""
+    hex: z.hex || "",
+    c: { n: z.color || "", h: z.hex || "" }
   })).filter(z => z.nombre && z.precio > 0);
-  if (!p.imagen_url || !piezas.length) return null;
-  piezas.forEach(z => { z.c = { n: z.color, h: z.hex }; });      // «color» con el mismo formato que usan los filtros
-  return { id: p.id, cat: p.cat, nom: p.nom, corta: p.desc_corta || "", desc: p.desc || "", img: p.imagen_url, piezas, esMultiple: true };
+  if (!piezasBase.length) return null;
+
+  /* Si hay referencias de color cargadas, construir variantes.
+     Si la foto del producto (imagen_url) NO coincide con ninguna referencia, se agrega
+     automáticamente como primera variante con los precios base (el "color original"). */
+  const refsValidas = Array.isArray(refs) ? refs.filter(r => r.imagen_url) : [];
+  if (!p.imagen_url && refsValidas.length === 0) return null;     // nada que mostrar
+
+  if (refsValidas.length > 0) {
+    /* ¿La foto base ya está en alguna referencia? */
+    const fotoBaseEnRefs = p.imagen_url
+      ? refsValidas.some(r => r.imagen_url === p.imagen_url)
+      : true;
+
+    const variantes = refsValidas.map(r => ({
+      color: r.color || "",
+      hex: r.hex || "",
+      img: r.imagen_url,
+      fotos: [r.imagen_url, ...(Array.isArray(r.imagenes_extra) ? r.imagenes_extra.map(e => typeof e === 'string' ? e : e?.url).filter(Boolean) : [])],
+      piezas: piezasDeColor(piezasBase, r)
+    }));
+
+    /* Si la foto base NO está en las referencias, la añadimos al principio
+       para que el primer color que ve el cliente sea el color original del conjunto */
+    if (!fotoBaseEnRefs && p.imagen_url) {
+      const colorBase = piezasBase.length ? (piezasBase[0].color || "") : "";
+      const hexBase   = piezasBase.length ? (piezasBase[0].hex || "") : "";
+      variantes.unshift({ color: colorBase, hex: hexBase, img: p.imagen_url, fotos: [p.imagen_url], piezas: piezasBase });
+    }
+
+    return {
+      id: p.id, cat: p.cat, nom: p.nom, corta: p.desc_corta || "", desc: p.desc || "",
+      img: variantes[0].img,
+      piezas: variantes[0].piezas,
+      variantes,
+      colorIdx: 0,
+      piezasBase,
+      esMultiple: true
+    };
+  }
+
+  /* Sin referencias: un solo "color" con la foto y precios del producto */
+  return {
+    id: p.id, cat: p.cat, nom: p.nom, corta: p.desc_corta || "", desc: p.desc || "",
+    img: p.imagen_url, piezas: piezasBase, variantes: null, colorIdx: 0,
+    piezasBase, esMultiple: true
+  };
 }
 
 /* Las prendas sueltas y los conjuntos se muestran juntos: cada conjunto va al final de su categoría */
@@ -1237,8 +1407,11 @@ function mezclarCatalogo(indiv, mult){
 }
 
 function textoMultiple(m){
-  if (!m._t) m._t = sinTildes([m.nom, m.cat, m.corta,
-    ...m.piezas.map(z => z.nombre + " " + z.desc + " " + z.color + " " + famDe(z.c).map(nomFamilia).join(" "))].join(" "));
+  if (!m._t) {
+    const coloresVariantes = m.variantes ? m.variantes.map(v => v.color).join(" ") : "";
+    m._t = sinTildes([m.nom, m.cat, m.corta, coloresVariantes,
+      ...m.piezasBase.map(z => z.nombre + " " + z.desc + " " + z.color + " " + famDe(z.c).map(nomFamilia).join(" "))].join(" "));
+  }
   return m._t;
 }
 function piezaCoincide(z){
@@ -1246,12 +1419,37 @@ function piezaCoincide(z){
   if (filtroTalla.size && !z.tallas.some(t => filtroTalla.has(t))) return false;
   return true;
 }
+function varianteCoincideMulti(v){
+  /* Filtra por color o talla dentro de las prendas de esta variante */
+  if (!filtroColor.size && !filtroTalla.size) return true;
+  return v.piezas.some(piezaCoincide);
+}
 function coincideMultiple(m){
   if (filtroActual !== "Todo" && m.cat !== filtroActual) return false;
   if (palabras.length){ const t = textoMultiple(m); if (!palabras.every(w => t.includes(w))) return false; }
   if (!enFranja(precioMinimoM(m))) return false;
-  if (filtroColor.size || filtroTalla.size) return m.piezas.some(piezaCoincide);
+  if (filtroColor.size || filtroTalla.size){
+    /* Si hay variantes de color, basta con que una variante coincida */
+    return m.variantes
+      ? m.variantes.some(varianteCoincideMulti)
+      : m.piezas.some(piezaCoincide);
+  }
   return true;
+}
+
+function pintarListaMulti(ul, piezas){
+  const totalConj = piezas.reduce((s, z) => s + z.precio, 0);
+  ul.replaceChildren();
+  piezas.forEach(z => {
+    const li = document.createElement("li");
+    const n = document.createElement("span"); n.textContent = z.nombre;
+    const b = document.createElement("b"); b.textContent = cop(z.precio);
+    li.append(n, b); ul.appendChild(li);
+  });
+  const liT = document.createElement("li"); liT.className = "multi__total";
+  const nT = document.createElement("span"); nT.textContent = "Total conjunto";
+  const bT = document.createElement("b"); bT.textContent = cop(totalConj);
+  liT.append(nT, bT); ul.appendChild(liT);
 }
 
 function tarjetaMultiple(m, idx){
@@ -1266,6 +1464,7 @@ function tarjetaMultiple(m, idx){
       <h3 class="card__name"></h3>
       <p class="card__desc"></p>
       <ul class="multi__lista" aria-label="Prendas de este conjunto y su precio"></ul>
+      <div class="swatches multi__swatches" role="group" aria-label="Colores del conjunto"></div>
       <button class="card__add" type="button"><span>Ver prendas y agregar</span></button>
     </div>`;
   $(".card__cat", el).textContent = m.cat;
@@ -1273,32 +1472,53 @@ function tarjetaMultiple(m, idx){
   const d = $(".card__desc", el); if (m.corta) d.textContent = m.corta; else d.remove();
 
   const media = $(".card__media", el);
-  const img = document.createElement("img");
-  img.className = "foto"; img.src = m.img; img.decoding = "async"; img.loading = "lazy";
-  img.alt = `${m.nom}: ${m.piezas.map(z => z.nombre).join(", ")}`;
-  media.appendChild(img);
-  media.setAttribute("role", "button"); media.setAttribute("tabindex", "0");
-  media.setAttribute("aria-label", `Ver la foto de ${m.nom} completa`);
-  const ampliar = () => abrirFotoGrande({ imagen_url: m.img, titulo: m.nom });
-  media.addEventListener("click", ampliar);
-  media.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); ampliar(); } });
+  const ul    = $(".multi__lista", el);
+  const swDiv = $(".multi__swatches", el);
+
+  /* Función que actualiza foto y precios según el color activo */
+  const actualizarColor = () => {
+    const v = m.variantes ? m.variantes[m.colorIdx] : null;
+    const imgSrc = v ? v.img : m.img;
+    const piezas = v ? v.piezas : m.piezas;
+
+    /* foto */
+    media.innerHTML = "";
+    const img = document.createElement("img");
+    img.className = "foto"; img.src = imgSrc; img.decoding = "async"; img.loading = "lazy";
+    img.alt = `${m.nom}: ${piezas.map(z => z.nombre).join(", ")}`;
+    media.appendChild(img);
+    media.setAttribute("role", "button"); media.setAttribute("tabindex", "0");
+    media.setAttribute("aria-label", `Ver la foto de ${m.nom} completa`);
+    const ampliar = () => abrirVisorMulti(m, m.colorIdx, 0);
+    media.onclick = ampliar;
+    media.onkeydown = e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); ampliar(); } };
+
+    /* lista de precios */
+    pintarListaMulti(ul, piezas);
+
+    /* swatches activos */
+    $$(":scope .sw", swDiv).forEach(b => b.setAttribute("aria-pressed", String(b.dataset.cidx === String(m.colorIdx))));
+  };
+
+  /* Swatches de color (solo si hay variantes) */
+  if (m.variantes && m.variantes.length > 1) {
+    m.variantes.forEach((v, i) => {
+      const sw = document.createElement("button");
+      sw.type = "button"; sw.className = "sw"; sw.dataset.cidx = String(i);
+      sw.style.setProperty("--c", v.hex || "#ccc");
+      sw.setAttribute("aria-label", v.color || `Color ${i + 1}`);
+      sw.setAttribute("aria-pressed", String(i === m.colorIdx));
+      sw.addEventListener("click", e => { e.stopPropagation(); m.colorIdx = i; actualizarColor(); });
+      swDiv.appendChild(sw);
+    });
+  } else {
+    swDiv.remove();                                                  // sin variantes: no muestra swatches
+  }
 
   const tag = document.createElement("span"); tag.className = "card__tag gold";
-  tag.textContent = `${m.piezas.length} prendas`; el.appendChild(tag);
+  tag.textContent = `${m.piezasBase.length} prendas`; el.appendChild(tag);
 
-  const ul = $(".multi__lista", el);
-  let totalConj = 0;
-  m.piezas.forEach(z => {
-    totalConj += z.precio;
-    const li = document.createElement("li");
-    const n = document.createElement("span"); n.textContent = z.nombre;
-    const b = document.createElement("b"); b.textContent = cop(z.precio);
-    li.append(n, b); ul.appendChild(li);
-  });
-  const liT = document.createElement("li"); liT.className = "multi__total";
-  const nT = document.createElement("span"); nT.textContent = "Total conjunto";
-  const bT = document.createElement("b"); bT.textContent = cop(totalConj);
-  liT.append(nT, bT); ul.appendChild(liT);
+  actualizarColor();                                                 // pintar el estado inicial
   $(".card__add", el).addEventListener("click", () => abrirMultiple(m));
   return el;
 }
@@ -1351,19 +1571,51 @@ function filaMultiple(m, z){
 }
 
 function abrirMultiple(m){
-  $("#multiCat").textContent = m.cat;
-  $("#multiNombre").textContent = m.nom;
-  const foto = $("#multiFoto"); foto.replaceChildren();
-  const btn = document.createElement("button"); btn.type = "button"; btn.className = "traje__foto-btn";
-  btn.setAttribute("aria-label", "Ver la foto completa");
-  const img = document.createElement("img"); img.src = m.img; img.alt = `${m.nom}: ${m.piezas.map(z => z.nombre).join(", ")}`; img.decoding = "async";
-  btn.appendChild(img); foto.appendChild(btn);
-  btn.addEventListener("click", () => abrirFotoGrande({ imagen_url: m.img, titulo: m.nom }));
-  $("#multiCuenta").textContent = String(m.piezas.length);
-  const ul = $("#multiPiezas"); ul.replaceChildren();
-  m.piezas.forEach(z => ul.appendChild(filaMultiple(m, z)));
-  $("#multiWa").href = wa(`¡Hola ${CFG.negocio}! Me interesa el conjunto «${m.nom}» y quiero más información 💕`);
-  $("#multiCuerpo").scrollTop = 0;
+  const pintarModal = () => {
+    const v = m.variantes ? m.variantes[m.colorIdx] : null;
+    const imgSrc = v ? v.img : m.img;
+    const piezas = v ? v.piezas : m.piezas;
+
+    $("#multiCat").textContent = m.cat;
+    $("#multiNombre").textContent = m.nom;
+
+    /* foto */
+    const foto = $("#multiFoto"); foto.replaceChildren();
+    const btn = document.createElement("button"); btn.type = "button"; btn.className = "traje__foto-btn";
+    btn.setAttribute("aria-label", "Ver la foto completa");
+    const img = document.createElement("img"); img.src = imgSrc;
+    img.alt = `${m.nom}: ${piezas.map(z => z.nombre).join(", ")}`; img.decoding = "async";
+    btn.appendChild(img); foto.appendChild(btn);
+    btn.addEventListener("click", () => abrirVisorMulti(m, m.colorIdx, 0));
+
+    /* cuenta y lista de prendas */
+    $("#multiCuenta").textContent = String(piezas.length);
+    const ul = $("#multiPiezas"); ul.replaceChildren();
+    piezas.forEach(z => ul.appendChild(filaMultiple(m, z)));
+
+    /* swatches en la ventana */
+    let sw = $("#multiSwatches");
+    if (!sw){ sw = document.createElement("div"); sw.id = "multiSwatches"; sw.className = "swatches multi__swatches-modal";
+      sw.setAttribute("role","group"); sw.setAttribute("aria-label","Colores del conjunto");
+      $("#multiCuenta").parentNode.insertAdjacentElement("afterend", sw); }
+    sw.replaceChildren();
+    if (m.variantes && m.variantes.length > 1){
+      m.variantes.forEach((v2, i) => {
+        const b = document.createElement("button"); b.type="button"; b.className="sw";
+        b.style.setProperty("--c", v2.hex || "#ccc");
+        b.setAttribute("aria-label", v2.color || `Color ${i+1}`);
+        b.setAttribute("aria-pressed", String(i === m.colorIdx));
+        b.addEventListener("click", () => { m.colorIdx = i; pintarModal(); });
+        sw.appendChild(b);
+      });
+      sw.hidden = false;
+    } else { sw.hidden = true; }
+
+    $("#multiWa").href = wa(`¡Hola ${CFG.negocio}! Me interesa el conjunto «${m.nom}» ${v ? "en color " + v.color : ""} y quiero más información 💕`);
+    $("#multiCuerpo").scrollTop = 0;
+  };
+
+  pintarModal();
   multiModal.showModal();
 }
 
@@ -1376,6 +1628,175 @@ function agregarMultiple(m, z, t){
   save("cart", carrito); pintarCarrito();
   const b = $("#cartCount"); b.classList.remove("bump"); void b.offsetWidth; b.classList.add("bump");
   toast(`${z.nombre} · talla ${t}`);
+}
+
+/* ============================================================
+   INSTAGRAM: los reels se ven dentro del catálogo (embed oficial de Instagram)
+   Para cambiar un video, solo se cambia su código en esta lista:
+   instagram.com/reel/ESTE_CODIGO/
+   ============================================================ */
+const IG = {
+  usuario: "losangeles6397",
+  reels: ["DcmhZGSvBA4", "DcekC49PvK1", "DbJNbTnxTMQ", "DZlgrjUxZJY", "DZN9tikPOJN", "DX-DMbQRsIx"]
+};
+
+function pintarReels(){
+  const rail = $("#igRail"), sec = $("#instagram");
+  const codigos = IG.reels.filter(c => /^[A-Za-z0-9_-]{5,20}$/.test(c));        // solo códigos válidos entran en una URL
+  if (!codigos.length){ sec.hidden = true; return; }
+  rail.replaceChildren();
+  codigos.forEach((code, i) => {
+    const card = document.createElement("article"); card.className = "ig__card";
+    const marco = document.createElement("div"); marco.className = "ig__marco"; marco.dataset.code = code;
+    const espera = document.createElement("span"); espera.className = "ig__espera"; espera.setAttribute("aria-hidden", "true");
+    espera.innerHTML = '<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg>';
+    marco.appendChild(espera);
+    const ver = document.createElement("a"); ver.className = "ig__ver"; ver.href = `https://www.instagram.com/reel/${code}/`;
+    ver.target = "_blank"; ver.rel = "noopener noreferrer"; ver.textContent = "Ver en Instagram ↗";
+    ver.setAttribute("aria-label", `Ver el video ${i + 1} en Instagram`);
+    card.append(marco, ver); rail.appendChild(card);
+  });
+
+  /* Carga diferida: un video solo se pide cuando está cerca de verse (y el siguiente, para que no haya espera al deslizar) */
+  const marcos = $$(".ig__marco", rail);
+  const cargar = marco => {
+    if (!marco || marco.dataset.listo) return;
+    marco.dataset.listo = "1";
+    const f = document.createElement("iframe");
+    f.src = `https://www.instagram.com/reel/${marco.dataset.code}/embed/`;
+    f.title = `Video de Instagram de @${IG.usuario}`;
+    f.allow = "encrypted-media; fullscreen; picture-in-picture"; f.allowFullscreen = true;
+    f.referrerPolicy = "strict-origin-when-cross-origin"; f.setAttribute("scrolling", "no");
+    marco.appendChild(f);
+  };
+  if ("IntersectionObserver" in window){
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      const i = marcos.indexOf(e.target); cargar(e.target); io.unobserve(e.target);
+      if (rail.clientWidth < 700) cargar(marcos[i + 1]);                       // en celular se ve uno a la vez: el siguiente ya queda listo
+    }), { rootMargin: "500px 0px", threshold: 0.3 });
+    marcos.forEach(m => io.observe(m));
+  } else marcos.forEach(cargar);
+
+  /* Instagram avisa la altura real de cada video; el marco se ajusta a ella */
+  window.addEventListener("message", e => {
+    if (e.origin !== "https://www.instagram.com") return;
+    let d = e.data; if (typeof d === "string"){ try { d = JSON.parse(d); } catch { return; } }
+    if (!d || d.type !== "MEASURE" || !(d.details && d.details.height > 0)) return;
+    const f = $$("iframe", rail).find(x => x.contentWindow === e.source);
+    if (f) f.parentElement.style.height = Math.min(Math.round(d.details.height), 1100) + "px";
+  });
+
+  /* Flechas */
+  const prev = $("#igPrev"), next = $("#igNext");
+  const paso = () => (rail.querySelector(".ig__card")?.getBoundingClientRect().width || 300) + 16;
+  const estado = () => {
+    const max = rail.scrollWidth - rail.clientWidth - 2;
+    prev.disabled = rail.scrollLeft <= 2; next.disabled = rail.scrollLeft >= max;
+    $(".ig__nav").hidden = max <= 0;                                           // si todo cabe, no hacen falta flechas
+  };
+  prev.addEventListener("click", () => rail.scrollBy({ left: -paso(), behavior: "smooth" }));
+  next.addEventListener("click", () => rail.scrollBy({ left:  paso(), behavior: "smooth" }));
+  rail.addEventListener("scroll", estado, { passive: true });
+  addEventListener("resize", estado);
+  estado();
+}
+
+/* ============================================================
+   COMENTARIOS (tabla comentarios, se administra desde el panel)
+   Se muestran tal como se guardaron, sin tocar mayúsculas ni signos.
+   Si no hay ninguno o la tabla no existe, la sección no aparece.
+   ============================================================ */
+/* Si es true, lo que escriben los visitantes llega OCULTO y lo publicas tú con un clic desde el panel.
+   Si es false, se publica al instante (tú igual puedes ocultarlo o borrarlo después). */
+const COMENTARIOS_REVISAR = true;
+const COM_MAX = 240, COM_ORDEN_FINAL = 100000;
+
+const comentariosListo = (async () => {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/comentarios?activo=eq.true&order=orden,id`, {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+    });
+    if (!res.ok) { console.warn('Comentarios no disponibles:', res.status); return { ok: false, filas: [] }; }
+    const filas = await res.json();
+    return { ok: true, filas: Array.isArray(filas) ? filas : [] };
+  } catch (e) { console.warn('Comentarios:', e); return { ok: false, filas: [] }; }
+})();
+
+function filaComentario(c, i){
+  const li = document.createElement("li"); li.className = "opin__item reveal"; li.style.setProperty("--i", String(i % 6));
+  const p = document.createElement("p"); p.className = "opin__txt"; p.textContent = String(c.texto).trim();   // textContent: nunca se interpreta como HTML
+  li.appendChild(p);
+  const autor = String(c.autor || "").trim();
+  if (autor){ const a = document.createElement("small"); a.className = "opin__autor"; a.textContent = autor; li.appendChild(a); }
+  return li;
+}
+
+function actualizarEncabezadoComentarios(){
+  const hay = $("#opinLista").children.length > 0;
+  $("#opinTitulo").textContent = hay ? "Lo que dicen de nosotras" : "Déjanos tu comentario";
+  $("#opinSub").textContent = hay ? "Mensajes que nos escriben" : "Cuéntanos qué te parecen nuestras prendas";
+  $("#opinLista").hidden = !hay;
+}
+
+function pintarComentarios(res){
+  const sec = $("#comentarios"), ul = $("#opinLista");
+  if (!res || !res.ok){ sec.hidden = true; return; }               // sin la tabla no hay dónde guardar: la sección no aparece
+  const lista = res.filas.filter(c => c && String(c.texto || "").trim());
+  ul.replaceChildren();
+  lista.forEach((c, i) => ul.appendChild(filaComentario(c, i)));
+  actualizarEncabezadoComentarios();
+  sec.hidden = false;
+  conectarFormComentarios();
+  observar(sec);
+}
+
+let formComentariosListo = false;
+function conectarFormComentarios(){
+  if (formComentariosListo) return; formComentariosListo = true;
+  const f = $("#opinForm"), txt = $("#opinTexto"), nom = $("#opinNombre"), msg = $("#opinMsg"), btn = $("#opinEnviar"), cta = $("#opinCuenta");
+  const decir = (t, tipo = "") => { msg.textContent = t; msg.className = "opin__msg" + (tipo ? " " + tipo : ""); };
+  const publicar = cuerpo => fetch(`${SUPABASE_URL}/rest/v1/comentarios`, {
+    method: "POST",
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+    body: JSON.stringify(cuerpo)
+  });
+
+  txt.addEventListener("input", () => { cta.textContent = `${txt.value.length} / ${COM_MAX}`; if (msg.classList.contains("error")) decir(""); });
+
+  f.addEventListener("submit", async e => {
+    e.preventDefault();
+    if ($("#opinSitio").value){ decir("¡Gracias! Recibimos tu comentario.", "ok"); f.reset(); return; }   // trampa para robots: se simula el éxito y no se guarda nada
+    const texto = txt.value.replace(/\r\n/g, "\n").trim().replace(/\n{3,}/g, "\n\n");
+    const autor = nom.value.trim().replace(/\s+/g, " ");
+    if (texto.length < 2) return decir("Escribe tu comentario antes de enviarlo.", "error");
+    if (/(https?:\/\/|www\.)\S+|\b[\w-]+\.(com|co|net|org|io|ly|me)\b/i.test(texto + " " + autor))
+      return decir("Por seguridad no se pueden enviar enlaces en los comentarios.", "error");
+
+    const ahora = Date.now(); let hist = [];
+    try { hist = JSON.parse(localStorage.getItem("ang_com") || "[]").filter(t => ahora - t < 864e5); } catch {}
+    if (hist.length && ahora - hist[hist.length - 1] < 45000) return decir("Espera un momento antes de enviar otro comentario.", "error");
+    if (hist.length >= 3) return decir("Hoy ya nos dejaste varios comentarios, ¡gracias! Puedes escribirnos de nuevo mañana.", "error");
+
+    btn.disabled = true; btn.textContent = "Enviando…"; decir("");
+    try {
+      const base = { texto, autor: autor || null, activo: !COMENTARIOS_REVISAR };
+      let r = await publicar({ ...base, origen: "visitante", nuevo: true, orden: COM_ORDEN_FINAL });
+      if (r.status === 400) r = await publicar(base);              // base de datos sin las columnas nuevas todavía: se guarda igual
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      try { localStorage.setItem("ang_com", JSON.stringify([...hist, ahora])); } catch {}
+      f.reset(); cta.textContent = `0 / ${COM_MAX}`;
+      if (COMENTARIOS_REVISAR) decir("¡Gracias! Recibimos tu comentario y lo publicaremos pronto.", "ok");
+      else {
+        $("#opinLista").appendChild(filaComentario({ texto, autor }, $("#opinLista").children.length));
+        actualizarEncabezadoComentarios(); observar($("#comentarios"));
+        decir("¡Gracias! Tu comentario ya está publicado.", "ok");
+      }
+    } catch (err) {
+      console.warn("Comentario no enviado:", err);
+      decir("No pudimos enviar tu comentario. Intenta de nuevo en un momento.", "error");
+    } finally { btn.disabled = false; btn.textContent = "Enviar comentario"; }
+  });
 }
 
 let LOOKS = [];
@@ -1626,7 +2047,12 @@ const sel     = {};                   // { id: {color:idx, talla:"M"} } — elec
 const vk      = (p, c) => p.id + "::" + c.n;
 const precio  = (p, c) => overrides[vk(p,c)]?.precio ?? c.p;
 function precioMinimoP(p){ return Math.min(...p.colores.map(c => precio(p, c))); }
-function precioMinimoM(m){ return Math.min(...m.piezas.map(z => z.precio)); }
+function precioMinimoM(m){
+  if (m.variantes && m.variantes.length){
+    return Math.min(...m.variantes.flatMap(v => v.piezas.map(z => z.precio)));
+  }
+  return Math.min(...m.piezasBase.map(z => z.precio));
+}
 function enFranja(v){ if(!filtroPrecioRango)return true; const{id,min,max}=filtroPrecioRango; return id==="0-100"?v<=100000:v>min&&v<=max; }
 const hay     = (p, c) => (overrides[vk(p,c)]?.stock ?? 1) !== 0;
 const agotado = p => p.colores.every(c => !hay(p, c));
@@ -1743,7 +2169,10 @@ const rangoTalla = t => {
 function tallasDisponibles(){
   const s = new Set();
   CATALOGO.forEach(p => p.colores.forEach(c => tallasDe(p, c).forEach(t => s.add(t))));
-  MULTIPLES.forEach(m => m.piezas.forEach(z => z.tallas.forEach(t => s.add(t))));
+  MULTIPLES.forEach(m => {
+    const todas = m.variantes ? m.variantes.flatMap(v => v.piezas) : m.piezasBase;
+    todas.forEach(z => z.tallas.forEach(t => s.add(t)));
+  });
   return [...s].sort((a, b) => { const x = rangoTalla(a), y = rangoTalla(b); return x[0] - y[0] || x[1] - y[1]; });
 }
 
@@ -1781,7 +2210,14 @@ function ajustarVarianteElegida(p){
 }
 
 function pintarOpcionesFiltro(){
-  const fams = FAMILIAS.filter(f => CATALOGO.some(p => p.colores.some(c => famDe(c).includes(f.id))) || MULTIPLES.some(m => m.piezas.some(z => famDe(z.c).includes(f.id))));
+  /* Para los múltiples con variantes de color, se buscan familias en TODAS las variantes */
+  const fams = FAMILIAS.filter(fam => {
+    if (CATALOGO.some(p => p.colores.some(c => famDe(c).includes(fam.id)))) return true;
+    return MULTIPLES.some(m => {
+      if (m.variantes) return m.variantes.some(v => v.piezas.some(z => famDe(z.c).includes(fam.id)));
+      return m.piezasBase.some(z => famDe(z.c).includes(fam.id));
+    });
+  });
   const tallas = tallasDisponibles();
   [...filtroColor].forEach(id => { if (!fams.some(f => f.id === id)) filtroColor.delete(id); });
   [...filtroTalla].forEach(t => { if (!tallas.includes(t)) filtroTalla.delete(t); });
@@ -2030,6 +2466,7 @@ function pintarGrid(animar = true){
 /* ---------- visor de pantalla completa ---------- */
 const lb = $("#lightbox");
 let lbProd = null, lbPos = 0, lbSeq = [];
+let lbMulti = null;            // conjunto abierto en el visor (null = producto normal)
 
 /* Secuencia del visor: color 1 (original + adicionales), color 2 (…), etc.
    Sin fotos adicionales es una por color, igual que antes. */
@@ -2040,7 +2477,48 @@ function lbArmarSecuencia(p){
     for (let k = 0; k < n; k++) lbSeq.push({ ci, k });
   });
 }
+/* ---- Visor para conjuntos (varias prendas en una misma foto): mismas flechas, contador,
+   puntos de color, deslizar y teclado que el de los productos normales ---- */
+function lbVariantesMulti(m){
+  return m.variantes && m.variantes.length ? m.variantes : [{ color: "", hex: "", img: m.img, fotos: [m.img] }];
+}
+function abrirVisorMulti(m, idxColor = 0, idxFoto = 0){
+  lbProd = null; lbMulti = m;
+  const vars = lbVariantesMulti(m);
+  lbSeq = [];
+  vars.forEach((v, ci) => { for (let k = 0; k < Math.max(1, (v.fotos || []).length); k++) lbSeq.push({ ci, k }); });
+  lbPos = Math.max(0, lbSeq.findIndex(s => s.ci === idxColor && s.k === idxFoto));
+  const puntos = $("#lbPuntos"); puntos.replaceChildren();
+  if (vars.length > 1){
+    vars.forEach((v, i) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.style.setProperty("--c", v.hex || "#ccc");
+      b.setAttribute("aria-label", "Ver color " + (v.color || (i + 1)));
+      b.onclick = () => { lbPos = lbSeq.findIndex(s => s.ci === i && s.k === 0); lbPintar(); };
+      puntos.appendChild(b);
+    });
+  }
+  lbPintar();
+  lb.showModal();
+  document.documentElement.style.overflow = "hidden";
+  $("#lbClose").focus();
+}
+function lbPintarMulti(){
+  const m = lbMulti, vars = lbVariantesMulti(m), { ci, k } = lbSeq[lbPos], v = vars[ci];
+  const fotos = v.fotos && v.fotos.length ? v.fotos : [v.img];
+  const img = document.createElement("img");
+  img.src = fotos[k]; img.decoding = "async"; img.draggable = false;
+  img.alt = `${m.nom}${v.color ? " en color " + v.color : ""}: ${m.piezasBase.map(z => z.nombre).join(", ")}` + (fotos.length > 1 ? ` (foto ${k + 1} de ${fotos.length})` : "");
+  $("#lbMarco").replaceChildren(img);
+  $("#lbCat").textContent = m.cat;
+  $("#lbNom").textContent = m.nom + (v.color ? ` · ${v.color}` : "") + (fotos.length > 1 ? ` · foto ${k + 1}/${fotos.length}` : "");
+  const varios = lbSeq.length > 1;
+  $("#lbCont").textContent = varios ? `${lbPos + 1} / ${lbSeq.length}` : "";
+  $("#lbPrev").hidden = $("#lbNext").hidden = !varios;
+  $$("#lbPuntos button").forEach((b, i) => b.setAttribute("aria-pressed", String(i === ci)));
+}
 function lbPintar(){
+  if (lbMulti) return lbPintarMulti();
   const p = lbProd, { ci, k } = lbSeq[lbPos], c = p.colores[ci];
   const fotos = fotosDe(p, c);
   const marco = $("#lbMarco");
@@ -2060,11 +2538,12 @@ function lbPintar(){
   $$("#lbPuntos button").forEach((b, i) => b.setAttribute("aria-pressed", String(i === ci)));
 }
 function lbIr(paso){
-  if (!lbProd || lbSeq.length < 2) return;
+  if ((!lbProd && !lbMulti) || lbSeq.length < 2) return;
   lbPos = (lbPos + paso + lbSeq.length) % lbSeq.length;
   lbPintar();
 }
 function abrirVisor(p, idxColor, idxFoto){
+  lbMulti = null;
   lbProd = p; lbArmarSecuencia(p);
   lbPos = Math.max(0, lbSeq.findIndex(s => s.ci === (idxColor || 0) && s.k === (idxFoto || 0)));
   const puntos = $("#lbPuntos"); puntos.replaceChildren();
@@ -2465,6 +2944,8 @@ function panel(){
 
 $("#year").textContent = String(new Date().getFullYear());
 conectarTraje();
+pintarReels();
+comentariosListo.then(pintarComentarios);
 cargarProductosDesdeSupabase();
 pintarCarrito();
 linksWA();
