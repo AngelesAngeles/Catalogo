@@ -103,6 +103,7 @@ p{text-wrap:pretty}
 .ticker__track{display:flex; gap:0; width:max-content; animation:ticker 34s linear infinite}
 .ticker span{display:inline-flex; align-items:center; height:var(--h); padding-inline:1.6rem;
   font-size:.72rem; letter-spacing:.22em; text-transform:uppercase; font-weight:500; white-space:nowrap}
+.js-envio{font-weight:inherit}
 .ticker span::after{content:"✦"; margin-left:1.6rem; opacity:.7}
 @keyframes ticker{to{transform:translateX(-50%)}}
 .ticker:hover .ticker__track{animation-play-state:paused}
@@ -769,8 +770,8 @@ footer li a:hover{color:var(--ink)}
 
 <div class="ticker" aria-hidden="true">
   <div class="ticker__track">
-    <span>Envío gratis desde $250.000</span><span>Bodies, blusas y corsets</span><span>Cambios sin problema</span><span>Pago contraentrega</span>
-    <span>Envío gratis desde $250.000</span><span>Bodies, blusas y corsets</span><span>Cambios sin problema</span><span>Pago contraentrega</span>
+    <span>Envío gratis en compras superiores a <b class="js-envio"></b></span><span>Bodies, blusas y corsets</span><span>Cambios sin problema</span><span>Pago contraentrega</span>
+    <span>Envío gratis en compras superiores a <b class="js-envio"></b></span><span>Bodies, blusas y corsets</span><span>Cambios sin problema</span><span>Pago contraentrega</span>
   </div>
 </div>
 
@@ -959,7 +960,7 @@ footer li a:hover{color:var(--ink)}
     <div class="perks">
       <div class="perk reveal">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 8h11v9H3zM14 11h4l3 3v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17.5" cy="18" r="2"/></svg>
-        <div><h3>Envío a toda Colombia</h3><p>24 a 48 horas en ciudades principales. Gratis desde $250.000.</p></div>
+        <div><h3>Envío a toda Colombia</h3><p>24 a 48 horas en ciudades principales. Gratis en compras superiores a <b class="js-envio"></b>.</p></div>
       </div>
       <div class="perk reveal" style="--i:1">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 8h13l-2.5-3M20 16H7l2.5 3"/></svg>
@@ -1160,7 +1161,7 @@ footer li a:hover{color:var(--ink)}
 const CFG = {
   negocio: "Angeles Angeles Boutique",
   whatsapp: "573000000000",          // ← reemplazar por el número real (57 + celular)
-  envioGratisDesde: 250000,
+  envioGratisDesde: 450000,        // el envío es gratis en compras SUPERIORES a este valor (más de, no «desde»)
   adminUser: "admin"
 };
 const AK = "lab_";                    // prefijo de localStorage
@@ -2698,9 +2699,9 @@ function pintarCarrito(){
   });
   $("#cartTotal").textContent = cop(total);
   const falta = CFG.envioGratisDesde - total;
-  $("#cartEnvio").textContent = falta > 0
-    ? `Te faltan ${cop(falta)} para el envío gratis`
-    : "Tenés envío gratis 🚚";
+  $("#cartEnvio").textContent = total > CFG.envioGratisDesde ? "Tienes envío gratis 🚚"
+    : falta > 0 ? `Agrega más de ${cop(falta)} para el envío gratis`          // «más de»: hay que superar el valor, no igualarlo
+    : "Agrega un poco más para el envío gratis";                                // justo en el valor: todavía no alcanza
   linksWA();
 }
 
@@ -2722,7 +2723,7 @@ function msgCarrito(){
   let t = 0, l = [`¡Hola ${CFG.negocio}! Quiero pedir:`, ""];
   carrito.forEach(i => { t += i.precio * i.q; l.push(`• ${i.q}x ${i.conj ? i.nom + " (" + i.conj + ")" : i.nom + " — " + i.color} — talla ${i.talla === "Única" ? "única" : i.talla} — ${cop(i.precio * i.q)}`); });
   l.push("", `Total: ${cop(t)}`);
-  if (t >= CFG.envioGratisDesde) l.push("(Con envío gratis 🚚)");
+  if (t > CFG.envioGratisDesde) l.push("(Con envío gratis 🚚)");
   return l.join("\n");
 }
 const wa = txt => `https://wa.me/${CFG.whatsapp}?text=${encodeURIComponent(txt)}`;
@@ -2944,6 +2945,7 @@ function panel(){
 
 $("#year").textContent = String(new Date().getFullYear());
 conectarTraje();
+$$(".js-envio").forEach(e => { e.textContent = cop(CFG.envioGratisDesde); });
 pintarReels();
 comentariosListo.then(pintarComentarios);
 cargarProductosDesdeSupabase();
