@@ -427,7 +427,7 @@ section{position:relative}
 .multi__aviso{min-height:1.15em; margin:-.2rem 0 0; font-size:.82rem; line-height:1.3; color:var(--rosa-deep)}
 .multi__agregar.ok{background:oklch(0.43 0.09 150)}
 
-/* ---------- tarjeta de regalo ---------- */
+/* ---------- bono regalo ---------- */
 .gift{margin-top:clamp(3.5rem,9vw,6rem); border-radius:26px; padding:clamp(1.8rem,5vw,3.4rem) clamp(1.6rem,5vw,3.2rem);
   background:linear-gradient(135deg, var(--champan-lt) 0%, oklch(0.97 0.02 345) 100%); position:relative; overflow:hidden}
 .gift::before{content:""; position:absolute; width:60%; aspect-ratio:1; right:-14%; top:-40%; border-radius:50%;
@@ -443,6 +443,8 @@ section{position:relative}
 .gift__val--custom{border-style:dashed}
 .gift__custom{margin-top:1rem; position:relative; z-index:1; display:flex; flex-direction:column; gap:.5rem}
 .gift__custom[hidden]{display:none}
+.gift__desde{margin:.1rem 0 .7rem; font-size:1.1rem; font-weight:600; color:var(--rosa-deep); position:relative; z-index:1}
+.gift__aviso{min-height:1.3em; margin:0; font-size:.9rem; font-weight:500; color:oklch(0.4 0.16 350)}
 .gift__lbl{font-size:.95rem; color:var(--ink-2)}
 .gift__input-wrap{display:flex; align-items:center; gap:.5rem; max-width:260px}
 .gift__signo{font-size:1.2rem; font-weight:600; color:var(--ink-2)}
@@ -519,6 +521,7 @@ section{position:relative}
 .perk svg{flex:0 0 26px; color:var(--champan); margin-top:2px}
 .perk h3{font-size:1rem; font-family:var(--sans); font-weight:500; letter-spacing:.04em; color:var(--ink)}
 .perk p{margin:.25rem 0 0; font-size:.9rem; color:var(--ink-3)}
+.perk__lista{list-style:none; margin:.25rem 0 0; padding:0; display:grid; gap:.18rem; font-size:.9rem; color:var(--ink-3)}
 
 /* ---------- footer ---------- */
 footer{margin-top:clamp(3.5rem,9vw,6rem); padding-block:clamp(2.5rem,6vw,4rem) 2rem; background:var(--bg-2);
@@ -770,8 +773,8 @@ footer li a:hover{color:var(--ink)}
 
 <div class="ticker" aria-hidden="true">
   <div class="ticker__track">
-    <span>Envío gratis en compras superiores a <b class="js-envio"></b></span><span>Bodies, blusas y corsets</span><span>Cambios sin problema</span><span>Pago contraentrega</span>
-    <span>Envío gratis en compras superiores a <b class="js-envio"></b></span><span>Bodies, blusas y corsets</span><span>Cambios sin problema</span><span>Pago contraentrega</span>
+    <span>Envío gratis en compras superiores a <b class="js-envio"></b></span><span>Bodies, blusas y corsets</span><span>Cambios hasta 8 días hábiles</span><span>Paga con Addi, tarjetas o transferencia</span>
+    <span>Envío gratis en compras superiores a <b class="js-envio"></b></span><span>Bodies, blusas y corsets</span><span>Cambios hasta 8 días hábiles</span><span>Paga con Addi, tarjetas o transferencia</span>
   </div>
 </div>
 
@@ -892,10 +895,10 @@ footer li a:hover{color:var(--ink)}
       <div class="gift__deco" aria-hidden="true">
         <svg width="68" height="68" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
       </div>
-      <h2>Regala Angeles 🎁</h2>
-      <p>Dale a alguien especial la libertad de elegir lo que más le guste de la colección. Tú escoges el valor, nosotras entregamos la tarjeta y quien la recibe compra lo que quiera en la tienda.</p>
-      <div class="gift__valores" role="group" aria-label="Valor de la tarjeta de regalo">
-        <button type="button" class="gift__val" data-v="50000">$50.000</button>
+      <h2>Bono regalo 🎁</h2>
+      <p class="gift__desde">A partir de <b class="js-bono"></b></p>
+      <p>Dale a alguien especial la libertad de elegir lo que más le guste de la colección. Tú escoges el valor, nosotras entregamos el bono y quien lo recibe compra lo que quiera en la tienda.</p>
+      <div class="gift__valores" role="group" aria-label="Valor del bono regalo">
         <button type="button" class="gift__val" data-v="100000">$100.000</button>
         <button type="button" class="gift__val" data-v="150000">$150.000</button>
         <button type="button" class="gift__val" data-v="200000">$200.000</button>
@@ -903,13 +906,14 @@ footer li a:hover{color:var(--ink)}
         <button type="button" class="gift__val gift__val--custom" data-v="">Otro valor</button>
       </div>
       <div class="gift__custom" id="giftCustom" hidden>
-        <label for="giftMonto" class="gift__lbl">Escribe el valor que quieres regalar:</label>
+        <label for="giftMonto" class="gift__lbl">Escribe el valor del bono (desde <b class="js-bono"></b>):</label>
         <div class="gift__input-wrap">
           <span class="gift__signo">$</span>
-          <input type="number" id="giftMonto" min="10000" step="5000" placeholder="ej: 175000" aria-label="Monto de la tarjeta de regalo">
+          <input type="number" id="giftMonto" min="100000" step="5000" placeholder="ej: 175000" aria-label="Monto del bono regalo">
         </div>
+        <p class="gift__aviso" id="giftAviso" role="status" aria-live="polite"></p>
       </div>
-      <button class="btn btn--primary gift__cta" id="giftBtn" type="button" disabled>Pedir mi tarjeta de regalo por WhatsApp</button>
+      <button class="btn btn--primary gift__cta" id="giftBtn" type="button" disabled>Pedir mi bono regalo por WhatsApp</button>
     </div>
 
     <div class="ig reveal" id="instagram">
@@ -964,11 +968,11 @@ footer li a:hover{color:var(--ink)}
       </div>
       <div class="perk reveal" style="--i:1">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 8h13l-2.5-3M20 16H7l2.5 3"/></svg>
-        <div><h3>Política de cambios</h3><p>Si la talla no te quedó, la cambiamos dentro de los 8 días.</p></div>
+        <div><h3>Política de cambios</h3><p>Los cambios tienen vigencia de 8 días hábiles.</p></div>
       </div>
       <div class="perk reveal" style="--i:2">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M2.5 10h19"/></svg>
-        <div><h3>Medios de pago</h3><p>Contraentrega, Nequi, Daviplata o transferencia.</p></div>
+        <div><h3>Medios de pago</h3><ul class="perk__lista"><li>Crédito con Addi</li><li>Pago con todas las tarjetas</li><li>Transferencia Bancolombia o Bre-B</li></ul></div>
       </div>
       <div class="perk reveal" style="--i:3">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 3l2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.4l6.1-.8z"/></svg>
@@ -1160,8 +1164,9 @@ footer li a:hover{color:var(--ink)}
    ============================================================ */
 const CFG = {
   negocio: "Angeles Angeles Boutique",
-  whatsapp: "573000000000",          // ← reemplazar por el número real (57 + celular)
+  whatsapp: "573133712442",          // +57 313 371 2442 (57 + celular, sin espacios ni signos)
   envioGratisDesde: 450000,        // el envío es gratis en compras SUPERIORES a este valor (más de, no «desde»)
+  bonoMinimo: 100000,              // el bono regalo se vende desde este valor
   adminUser: "admin"
 };
 const AK = "lab_";                    // prefijo de localStorage
@@ -1612,7 +1617,7 @@ function abrirMultiple(m){
       sw.hidden = false;
     } else { sw.hidden = true; }
 
-    $("#multiWa").href = wa(`¡Hola ${CFG.negocio}! Me interesa el conjunto «${m.nom}» ${v ? "en color " + v.color : ""} y quiero más información 💕`);
+    $("#multiWa").href = wa(msgConjunto(m, v));
     $("#multiCuerpo").scrollTop = 0;
   };
 
@@ -1670,14 +1675,22 @@ function pintarReels(){
     f.referrerPolicy = "strict-origin-when-cross-origin"; f.setAttribute("scrolling", "no");
     marco.appendChild(f);
   };
-  if ("IntersectionObserver" in window){
-    const io = new IntersectionObserver(es => es.forEach(e => {
-      if (!e.isIntersecting) return;
-      const i = marcos.indexOf(e.target); cargar(e.target); io.unobserve(e.target);
-      if (rail.clientWidth < 700) cargar(marcos[i + 1]);                       // en celular se ve uno a la vez: el siguiente ya queda listo
-    }), { rootMargin: "500px 0px", threshold: 0.3 });
-    marcos.forEach(m => io.observe(m));
-  } else marcos.forEach(cargar);
+  let activado = false;
+  const activar = () => {
+    if (activado) return; activado = true;
+    if ("IntersectionObserver" in window){
+      const io = new IntersectionObserver(es => es.forEach(e => {
+        if (!e.isIntersecting) return;
+        const i = marcos.indexOf(e.target); cargar(e.target); io.unobserve(e.target);
+        if (rail.clientWidth < 700) cargar(marcos[i + 1]);                       // en celular se ve uno a la vez: el siguiente ya queda listo
+      }), { rootMargin: "500px 0px", threshold: 0.3 });
+      marcos.forEach(m => io.observe(m));
+    } else marcos.forEach(cargar);
+  };
+  /* No compiten con las fotos del catálogo al arrancar: se activan al terminar de cargar la página (o a los 6 s) */
+  if (document.readyState === "complete") setTimeout(activar, 300);
+  else addEventListener("load", () => setTimeout(activar, 300), { once: true });
+  setTimeout(activar, 6000);
 
   /* Instagram avisa la altura real de cada video; el marco se ajusta a ella */
   window.addEventListener("message", e => {
@@ -1880,7 +1893,7 @@ function abrirTraje(l, i){
   $("#trajeCuenta").textContent = String(piezas.length);
   $("#trajeSub").hidden = $("#trajeAyuda").hidden = !piezas.length;
   $("#trajeVacio").hidden = !!piezas.length;
-  $("#trajeWa").href = wa(`¡Hola ${CFG.negocio}! Me gustó el traje «${l.titulo}» y quiero más información 💕`);
+  $("#trajeWa").href = wa(msgTraje(l, piezas));
   $(".traje__cuerpo").scrollTop = 0;
   trajeModal.showModal();
 }
@@ -2004,7 +2017,7 @@ function visual(p, c, sufijo, k = 0){
   if (!imgUrl) return silueta(p, c.h, sufijo);
 
   const alt = `${p.nom} en color ${c.n}` + (fotos.length > 1 ? ` (foto ${k + 1} de ${fotos.length})` : "");
-  return `<img class="foto" src="${imgUrl}" alt="${alt}" decoding="async">`;
+  return `<img class="foto" src="${imgUrl}" alt="${alt}" decoding="async" loading="lazy">`;
 }
 /* Puntitos para pasar entre las fotos del color (solo si hay más de una) */
 function puntosFotos(p, c, alCambiar){
@@ -2635,7 +2648,7 @@ function abrirPDP(p){
   };
   $("#pdpWa").onclick = () => {
     const c = elegido(p), t = sel[p.id]?.talla;
-    open(wa(`¡Hola ${CFG.negocio}! Quiero preguntar por el ${p.nom} en ${c.n}${t ? ", talla " + t : ""} (${cop(precio(p,c))}) 💕`), "_blank", "noopener");
+    open(wa(msgProducto(p, c, t)), "_blank", "noopener");
   };
   pdp.showModal();
 }
@@ -2718,18 +2731,67 @@ $("#cartClear").onclick = () => { carrito = []; save("cart", carrito); pintarCar
 addEventListener("keydown", e => { if (e.key === "Escape") abrirCarrito(false); });
 
 /* ---------- WhatsApp ---------- */
+const waSaludo = () => `¡Hola ${CFG.negocio}! 💕`;
+const tallaWA = t => (t === "Única" ? "única" : t);
+
+/* Pedido: lo que el cliente armó en el bolso, ordenado y con el total */
 function msgCarrito(){
-  if (!carrito.length) return `¡Hola ${CFG.negocio}! Quiero información de la colección 💕`;
-  let t = 0, l = [`¡Hola ${CFG.negocio}! Quiero pedir:`, ""];
-  carrito.forEach(i => { t += i.precio * i.q; l.push(`• ${i.q}x ${i.conj ? i.nom + " (" + i.conj + ")" : i.nom + " — " + i.color} — talla ${i.talla === "Única" ? "única" : i.talla} — ${cop(i.precio * i.q)}`); });
-  l.push("", `Total: ${cop(t)}`);
-  if (t > CFG.envioGratisDesde) l.push("(Con envío gratis 🚚)");
+  if (!carrito.length) return `${waSaludo()}\nQuiero información de la colección.`;
+  let total = 0;
+  const l = [waSaludo(), "Quiero hacer este pedido:", "", "*PRODUCTOS*"];
+  carrito.forEach((i, n) => {
+    const sub = i.precio * i.q; total += sub;
+    const nombre = i.conj ? `${i.nom} (${i.conj})` : i.nom;
+    const detalle = [i.color ? `Color: ${i.color}` : null, `Talla: ${tallaWA(i.talla)}`, `Cantidad: ${i.q}`].filter(Boolean).join(" · ");
+    l.push(`${n + 1}. ${nombre}`, `   ${detalle}`, `   ${i.q > 1 ? cop(i.precio) + " c/u → " : ""}${cop(sub)}`);
+  });
+  l.push("", `*TOTAL: ${cop(total)}*`,
+    total > CFG.envioGratisDesde ? `🚚 Envío gratis (compra superior a ${cop(CFG.envioGratisDesde)})` : "🚚 Envío: por confirmar según tu ciudad",
+    "", "*MIS DATOS*", "Nombre:", "Ciudad:", "Dirección:");
   return l.join("\n");
 }
+
+/* Consulta por un producto en específico (desde su ficha) */
+function msgProducto(p, c, t){
+  const l = [waSaludo(), "Quiero información de este producto:", "", `*${p.nom}*`, `Categoría: ${p.cat}`, `Color: ${c.n}`];
+  if (t) l.push(`Talla: ${tallaWA(t)}`);
+  l.push(`Precio: ${cop(precio(p, c))}`, "", "¿Está disponible?");
+  return l.join("\n");
+}
+
+/* Consulta por un conjunto (varias prendas en una foto), en el color que está mirando */
+function msgConjunto(m, v){
+  const piezas = v ? v.piezas : m.piezas;
+  const total = piezas.reduce((s, z) => s + z.precio, 0);
+  const l = [waSaludo(), "Quiero información de este conjunto:", "", `*${m.nom}*`, `Categoría: ${m.cat}`];
+  if (v && v.color) l.push(`Color: ${v.color}`);
+  l.push("", "*Prendas*", ...piezas.map(z => `• ${z.nombre}: ${cop(z.precio)}`), `Total del conjunto: ${cop(total)}`, "", "¿Está disponible?");
+  return l.join("\n");
+}
+
+/* Consulta por un traje de temporada y las prendas que lo componen */
+function msgTraje(l, piezas){
+  const m = [waSaludo(), "Me gustó este traje y quiero información:", "", `*${l.titulo}*`];
+  if (piezas.length){
+    m.push("", "*Prendas*", ...piezas.map(p => {
+      const pr = p.colores.map(c => precio(p, c)), min = Math.min(...pr), max = Math.max(...pr);
+      return `• ${p.nom}: ${min === max ? "" : "desde "}${cop(min)}`;
+    }));
+  }
+  m.push("", "¿Está disponible?");
+  return m.join("\n");
+}
+
+/* Bono regalo */
+function msgRegalo(valor){
+  return [waSaludo(), "Quiero comprar un bono regalo 🎁", "", `*Valor: ${cop(valor)}*`, "",
+          "*DATOS DEL BONO*", "Para (quien lo recibe):", "De parte de:", "", "¿Cómo lo recibo y cómo lo envío?"].join("\n");
+}
+
 const wa = txt => `https://wa.me/${CFG.whatsapp}?text=${encodeURIComponent(txt)}`;
 function linksWA(){
   $("#cartWa").href  = wa(msgCarrito());
-  $("#waFloat").href = wa(`¡Hola ${CFG.negocio}! Vi el catálogo y quiero preguntar por una pieza 💕`);
+  $("#waFloat").href = wa(`${waSaludo()}\nVi el catálogo y quiero preguntar por una prenda.`);
   $("#waFoot").href  = $("#waFloat").href;
   
 }
@@ -2835,10 +2897,18 @@ setInterval(() => {
   $$("#count b").forEach(b => b.textContent = String(val[b.dataset.c]).padStart(2, "0"));
 }, 1000);
 
-addEventListener("load", () => {
+/* La cortina se abre cuando terminó su animación y ya llegó el catálogo, y NUNCA más tarde de unos segundos.
+   Antes esperaba al evento "load" del navegador, que espera a todas las fotos y videos: con fotos pesadas
+   o una conexión lenta, la cortina se quedaba trabada. */
+let productosListos = Promise.resolve();            // al arrancar se reemplaza por la carga real del catálogo
+(() => {
   const c = $("#curtain"); if (!c) return;
-  setTimeout(() => { c.classList.add("done"); setTimeout(() => c.remove(), 900); }, reduce ? 0 : 1550);
-});
+  const abrir = () => { if (c.classList.contains("done")) return; c.classList.add("done"); setTimeout(() => c.remove(), 900); };
+  const minimo = reduce ? 0 : 1550, tope = reduce ? 0 : 3000;
+  setTimeout(() => {
+    Promise.race([ productosListos.catch(() => {}), new Promise(r => setTimeout(r, Math.max(0, tope - minimo))) ]).then(abrir);
+  }, minimo);
+})();
 
 /* ============================================================
    8. PANEL ADMIN OCULTO (doble clic en el copyright)
@@ -2919,36 +2989,38 @@ function panel(){
 /* ============================================================
    9. ARRANQUE
    ============================================================ */
-/* ── Tarjeta de regalo ───────────────────────────────────────────────── */
+/* ── Bono regalo (desde CFG.bonoMinimo) ──────────────────────────────── */
 (function(){
+  const MIN = CFG.bonoMinimo;
   let valorElegido = 0;
-  const btns = $$(".gift__val"), custom = $("#giftCustom"), monto = $("#giftMonto"), cta = $("#giftBtn");
+  const btns = $$(".gift__val"), custom = $("#giftCustom"), monto = $("#giftMonto"), cta = $("#giftBtn"), aviso = $("#giftAviso");
+  monto.min = String(MIN);
+  const valido = () => valorElegido >= MIN;
   const actualizar = () => {
-    cta.disabled = !(valorElegido > 0);
-    cta.textContent = valorElegido > 0
-      ? `Pedir tarjeta de ${cop(valorElegido)} por WhatsApp 🎁`
-      : "Pedir mi tarjeta de regalo por WhatsApp";
-    btns.forEach(b => b.setAttribute("aria-pressed", String(Number(b.dataset.v) === valorElegido && valorElegido > 0)));
+    cta.disabled = !valido();
+    cta.textContent = valido() ? `Pedir bono de ${cop(valorElegido)} por WhatsApp 🎁` : "Pedir mi bono regalo por WhatsApp";
+    btns.forEach(b => b.setAttribute("aria-pressed", String(b.dataset.v !== "" && Number(b.dataset.v) === valorElegido && valido())));
+    aviso.textContent = (!custom.hidden && valorElegido > 0 && !valido()) ? `El bono regalo es desde ${cop(MIN)}.` : "";
   };
   btns.forEach(b => b.addEventListener("click", () => {
-    if (b.classList.contains("gift__val--custom")){ custom.hidden=false; monto.focus(); valorElegido=parseInt(monto.value)||0; }
-    else { custom.hidden=true; valorElegido=Number(b.dataset.v); }
+    if (b.classList.contains("gift__val--custom")){ custom.hidden = false; monto.focus(); valorElegido = parseInt(monto.value) || 0; }
+    else { custom.hidden = true; valorElegido = Number(b.dataset.v); }
     actualizar();
   }));
-  monto.addEventListener("input", () => { valorElegido=parseInt(monto.value)||0; actualizar(); });
+  monto.addEventListener("input", () => { valorElegido = parseInt(monto.value) || 0; actualizar(); });
   cta.addEventListener("click", () => {
-    if (!valorElegido) return;
-    const msg=`¡Hola ${CFG.negocio}! Quiero comprar una tarjeta de regalo por ${cop(valorElegido)} 🎁\nEstaría para regalar y quiero saber cómo recibirla y enviarla.`;
-    window.open(wa(msg),"_blank","noopener");
+    if (!valido()) return;
+    window.open(wa(msgRegalo(valorElegido)), "_blank", "noopener");
   });
 })();
 
 $("#year").textContent = String(new Date().getFullYear());
 conectarTraje();
 $$(".js-envio").forEach(e => { e.textContent = cop(CFG.envioGratisDesde); });
+$$(".js-bono").forEach(e => { e.textContent = cop(CFG.bonoMinimo); });
 pintarReels();
 comentariosListo.then(pintarComentarios);
-cargarProductosDesdeSupabase();
+productosListos = cargarProductosDesdeSupabase();
 pintarCarrito();
 linksWA();
 observar();
