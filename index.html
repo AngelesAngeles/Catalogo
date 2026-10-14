@@ -928,9 +928,9 @@ footer li a:hover{color:var(--ink)}
       <div class="ig__head">
         <p class="ig__eyebrow">Mira cómo se ven puestas</p>
         <h2>
-          <a class="ig__user" href="https://www.instagram.com/losangeles6397/" target="_blank" rel="noopener noreferrer" aria-label="Abrir el perfil de Instagram @losangeles6397">
+          <a class="ig__user" href="https://www.instagram.com/angelesangeles68" target="_blank" rel="noopener noreferrer" aria-label="Abrir el perfil de Instagram @angelesangeles68">
             <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
-            <span>@losangeles6397</span>
+            <span>@angelesangeles68</span>
           </a>
         </h2>
       </div>
@@ -1018,7 +1018,7 @@ footer li a:hover{color:var(--ink)}
         <h4>Escríbenos</h4>
         <ul>
           <li><a id="waFoot" href="#" target="_blank" rel="noopener">WhatsApp</a></li>
-          <li><a href="https://www.instagram.com/losangeles6397/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://www.instagram.com/angelesangeles68" target="_blank" rel="noopener noreferrer">Instagram</a></li>
           <li>Santa Rosa de Cabal, Risaralda</li>
         </ul>
       </div>
@@ -1655,18 +1655,21 @@ function agregarMultiple(m, z, t){
 }
 
 /* ============================================================
-   INSTAGRAM: los reels se ven dentro del catálogo (embed oficial de Instagram)
-   Para cambiar un video, solo se cambia su código en esta lista:
-   instagram.com/reel/ESTE_CODIGO/
+   INSTAGRAM: los reels se cargan desde Supabase (tabla instagram_reels).
+   Para agregar o quitar videos usa la pestaña «Instagram» del panel admin.
    ============================================================ */
-const IG = {
-  usuario: "losangeles6397",
-  reels: ["DcmhZGSvBA4", "DcekC49PvK1", "DbJNbTnxTMQ", "DZlgrjUxZJY", "DZN9tikPOJN", "DX-DMbQRsIx"]
-};
+const IG_USUARIO = "angelesangeles68";
+const igCodigo = url => { const m = String(url).match(/reel\/([A-Za-z0-9_-]{5,20})/); return m ? m[1] : null; };
 
-function pintarReels(){
+async function pintarReels(){
   const rail = $("#igRail"), sec = $("#instagram");
-  const codigos = IG.reels.filter(c => /^[A-Za-z0-9_-]{5,20}$/.test(c));        // solo códigos válidos entran en una URL
+  let codigos = [];
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/instagram_reels?activo=eq.true&order=orden,id`, {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+    });
+    if (res.ok){ const filas = await res.json(); codigos = (Array.isArray(filas) ? filas : []).map(r => igCodigo(r.url)).filter(Boolean); }
+  } catch(e){ console.warn('Instagram:', e); }
   if (!codigos.length){ sec.hidden = true; return; }
   rail.replaceChildren();
   codigos.forEach((code, i) => {
@@ -1688,7 +1691,7 @@ function pintarReels(){
     marco.dataset.listo = "1";
     const f = document.createElement("iframe");
     f.src = `https://www.instagram.com/reel/${marco.dataset.code}/embed/`;
-    f.title = `Video de Instagram de @${IG.usuario}`;
+    f.title = `Video de Instagram de @${IG_USUARIO}`;
     f.allow = "encrypted-media; fullscreen; picture-in-picture"; f.allowFullscreen = true;
     f.referrerPolicy = "strict-origin-when-cross-origin"; f.setAttribute("scrolling", "no");
     marco.appendChild(f);
